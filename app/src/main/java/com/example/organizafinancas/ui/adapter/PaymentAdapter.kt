@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemPurchaseDetailBinding
 import com.example.organizafinancas.domain.model.Payment
 
-class PaymentListAdapter(
-    private val paymentList: MutableList<Payment> = mutableListOf()
-) : RecyclerView.Adapter<PaymentListAdapter.ViewHolder>() {
+class PaymentAdapter(
+    private val paymentList: List<Payment> = mutableListOf()
+) : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemPurchaseDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -7,65 +7,41 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.organizafinancas.databinding.FragmentHomeBinding
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.ui.adapter.FilterAdapter
-import com.example.organizafinancas.ui.adapter.PaymentListAdapter
+import com.example.organizafinancas.ui.adapter.PaymentAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by lazy {
+        ViewModelProvider(this)[HomeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        homeViewModel.text.observe(viewLifecycleOwner) {}
-        return root
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupLists()
+    override fun onStart() {
+        super.onStart()
+        setupObservers()
+        viewModel.fetchFilterList()
+        viewModel.fetchPaymentList()
     }
 
-    private fun setupLists() {
-        with(binding) {
-            recyclerview.adapter = provideFilterAdapter()
-            recyclerview2.adapter = providePurchaseAdapter()
+    private fun setupObservers() {
+        viewModel.paymentList.observe(viewLifecycleOwner) {
+            binding.recyclerview2.adapter = PaymentAdapter(it)
+        }
+        viewModel.filterList.observe(viewLifecycleOwner) {
+            binding.recyclerview.adapter = FilterAdapter(it)
         }
     }
-
-    private fun providePurchaseAdapter() = PaymentListAdapter(providePurchaseList())
-
-    private fun providePurchaseList() =
-        mutableListOf(
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
-            Payment(type = PaymentTypeEnum.PIX),
-            Payment(type = PaymentTypeEnum.DINHEIRO),
-            Payment(type = PaymentTypeEnum.VR),
-            Payment(type = PaymentTypeEnum.VR),
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.VA),
-            Payment(type = PaymentTypeEnum.VA),
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
-        )
-
-    private fun provideFilterAdapter() = FilterAdapter(provideFilterList())
-
-    private fun provideFilterList() =
-        mutableListOf("credito", "debito", "dinheiro", "pix", "vr", "va")
 
     override fun onDestroyView() {
         super.onDestroyView()

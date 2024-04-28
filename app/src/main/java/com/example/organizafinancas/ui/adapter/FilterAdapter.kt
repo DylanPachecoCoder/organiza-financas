@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemFilterOptionBinding
 
 class FilterAdapter(
-    private val filterOptions: MutableList<String> = mutableListOf()
+    private val filterOptions: List<String> = mutableListOf()
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
