@@ -18,3 +18,5 @@ local.properties
 /.idea/migrations.xml
 /.idea/vcs.xml
 /.idea/gradle.xml
+/.idea/compiler.xml
+/.idea/misc.xml
