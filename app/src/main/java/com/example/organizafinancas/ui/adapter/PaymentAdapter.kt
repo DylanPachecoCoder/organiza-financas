@@ -4,31 +4,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemPurchaseDetailBinding
-import com.example.organizafinancas.domain.model.Purchase
+import com.example.organizafinancas.domain.model.Payment
 
-class PurchaseListAdapter(
-    private val purchaseList: MutableList<Purchase> = mutableListOf()
-) : RecyclerView.Adapter<PurchaseListAdapter.ViewHolder>() {
+class PaymentAdapter(
+    private val paymentList: List<Payment> = mutableListOf()
+) : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemPurchaseDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount() = purchaseList.size
+    override fun getItemCount() = paymentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(purchaseList[position])
+        holder.bind(paymentList[position])
     }
 
     inner class ViewHolder(private val binding: ItemPurchaseDetailBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(purchase: Purchase) {
+        fun bind(payment: Payment) {
             with(binding){
-                textviewPurchaseName.text = purchase.name
-                textviewPurchaseType.text = purchase.type
-                textviewPurchaseDate.text = purchase.date
-                textviewPurchaseValue.text = purchase.value
+                textviewPurchaseName.text = payment.name
+                textviewPurchaseType.text = payment.type.paymentType
+                textviewPurchaseDate.text = payment.date.let {
+                    "${it.dayOfMonth} ${it.month} ${it.year}"
+                }.lowercase()
+                textviewPurchaseValue.text = payment.value
             }
         }
     }

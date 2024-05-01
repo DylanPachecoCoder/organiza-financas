@@ -17,3 +17,4 @@ local.properties
 /.idea/kotlinc.xml
 /.idea/migrations.xml
 /.idea/vcs.xml
+/.idea/gradle.xml
