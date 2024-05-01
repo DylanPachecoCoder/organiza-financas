@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.organizafinancas.databinding.FragmentHomeBinding
@@ -47,11 +46,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupPaymentList(paymentList: List<Payment>?) {
-        binding.recyclerview2.adapter = PaymentAdapter(paymentList ?: listOf())
+        binding.recyclerviewPurchase.adapter = PaymentAdapter(paymentList ?: listOf())
     }
 
     private fun setupFilterList(filterList: List<PaymentTypeEnum>) {
-        binding.recyclerview.adapter = FilterAdapter(filterList, viewModel::filterList)
+        binding.recyclerviewFilterOption.adapter = FilterAdapter(filterList, viewModel::filterList)
     }
 
     override fun onDestroyView() {
