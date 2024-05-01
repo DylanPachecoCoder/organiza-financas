@@ -10,26 +10,51 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    private val _filterList = MutableLiveData<List<String>>()
-    val filterList: LiveData<List<String>> = _filterList
+    private var paymentList: List<Payment>? = null
 
-    private val _paymentList = MutableLiveData<List<Payment>>()
-    val paymentList: LiveData<List<Payment>> = _paymentList
+    private val _filterList = MutableLiveData<List<PaymentTypeEnum>>()
+    val filterList: LiveData<List<PaymentTypeEnum>> = _filterList
 
-    fun fetchFilterList(){
+    private val _filteredPaymentList = MutableLiveData<MutableList<Payment>?>()
+    val filteredPaymentList: LiveData<MutableList<Payment>?> = _filteredPaymentList
+
+    fun fetchFilterList() {
         viewModelScope.launch {
             _filterList.value = provideFilterList()
         }
     }
 
-    fun fetchPaymentList(){
+    fun fetchPaymentList() {
         viewModelScope.launch {
-            _paymentList.value = providePurchaseList()
+            paymentList = providePurchaseList()
+            setPaymentList(paymentList?.toMutableList())
         }
     }
 
+    fun filterList(option: PaymentTypeEnum, isChecked: Boolean) {
+        val selectedPaymentsList = paymentList?.filter { it.type == option }.orEmpty()
+        val currentPaymentList = _filteredPaymentList.value
+        if (isChecked) {
+            currentPaymentList?.addAll(selectedPaymentsList)
+        }else{
+            currentPaymentList?.removeAll(selectedPaymentsList)
+        }
+        setPaymentList(currentPaymentList)
+    }
+
+    private fun setPaymentList(currentPaymentList: MutableList<Payment>?) {
+        _filteredPaymentList.value = currentPaymentList
+    }
+
     private fun provideFilterList() =
-        mutableListOf("credito", "debito", "dinheiro", "pix", "vr", "va")
+        mutableListOf(
+            PaymentTypeEnum.CREDITO,
+            PaymentTypeEnum.DEBITO,
+            PaymentTypeEnum.DINHEIRO,
+            PaymentTypeEnum.PIX,
+            PaymentTypeEnum.VR,
+            PaymentTypeEnum.VA,
+        )
 
     private fun providePurchaseList() =
         mutableListOf(
@@ -45,5 +70,6 @@ class HomeViewModel : ViewModel() {
             Payment(type = PaymentTypeEnum.CREDITO),
             Payment(type = PaymentTypeEnum.DEBITO),
             Payment(type = PaymentTypeEnum.DEBITO),
+            Payment(type = PaymentTypeEnum.PIX),
         )
 }
