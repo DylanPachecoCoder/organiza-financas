@@ -48,39 +48,41 @@ class HomeViewModel : ViewModel() {
         _filteredPaymentList.value = currentPaymentList
     }
 
+    fun sumValues(): Double {
+        var sum = 0.0
+        _filteredPaymentList.value?.forEach {
+            sum+= it.value
+        }
+        return sum
+    }
+
     private fun provideFilterList() =
         mutableListOf(
-            PaymentTypeEnum.CREDITO,
-            PaymentTypeEnum.DEBITO,
-            PaymentTypeEnum.DINHEIRO,
+            PaymentTypeEnum.CREDIT,
+            PaymentTypeEnum.DEBIT,
+            PaymentTypeEnum.CASH,
             PaymentTypeEnum.PIX,
-            PaymentTypeEnum.VR,
-            PaymentTypeEnum.VA,
         )
 
     private fun providePurchaseList() =
         mutableListOf(
             Payment(
-                type = PaymentTypeEnum.CREDITO,
+                type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024,4,10)
             ),
             Payment(
-                type = PaymentTypeEnum.DEBITO,
+                type = PaymentTypeEnum.DEBIT,
                 date = LocalDate.of(2024,4,9)
             ),
             Payment(
                 type = PaymentTypeEnum.PIX,
                 date = LocalDate.of(2024,4,8)
             ),
-            Payment(type = PaymentTypeEnum.DINHEIRO),
-            Payment(type = PaymentTypeEnum.VR),
-            Payment(type = PaymentTypeEnum.VR),
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.VA),
-            Payment(type = PaymentTypeEnum.VA),
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
+            Payment(type = PaymentTypeEnum.CASH),
+            Payment(type = PaymentTypeEnum.CREDIT),
+            Payment(type = PaymentTypeEnum.CREDIT),
+            Payment(type = PaymentTypeEnum.DEBIT),
+            Payment(type = PaymentTypeEnum.DEBIT),
             Payment(type = PaymentTypeEnum.PIX),
         )
 }
