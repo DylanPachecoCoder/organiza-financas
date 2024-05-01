@@ -48,6 +48,14 @@ class HomeViewModel : ViewModel() {
         _filteredPaymentList.value = currentPaymentList
     }
 
+    fun sumValues(): Double {
+        var sum = 0.0
+        _filteredPaymentList.value?.forEach {
+            sum+= it.value
+        }
+        return sum
+    }
+
     private fun provideFilterList() =
         mutableListOf(
             PaymentTypeEnum.CREDIT,
