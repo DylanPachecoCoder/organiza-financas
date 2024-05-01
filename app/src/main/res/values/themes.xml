@@ -1,16 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.OrganizaFinancas" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.OrganizaFinancas" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#539CA3</item>
+        <item name="colorPrimary">#0100CC</item>
         <item name="colorPrimaryVariant">#009671</item>
-        <item name="colorOnPrimary">#C2D7CD</item>
+        <item name="colorOnPrimary">#0E749F</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#7E9878</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">#1B8135</item>
+        <item name="colorSecondaryVariant">#81D396</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <!-- Text color. -->
         <item name="android:textColorPrimary">@color/black</item>
