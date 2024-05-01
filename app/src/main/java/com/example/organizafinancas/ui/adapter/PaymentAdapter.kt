@@ -27,7 +27,9 @@ class PaymentAdapter(
             with(binding){
                 textviewPurchaseName.text = payment.name
                 textviewPurchaseType.text = payment.type.paymentType
-                textviewPurchaseDate.text = payment.date
+                textviewPurchaseDate.text = payment.date.let {
+                    "${it.dayOfMonth} ${it.month} ${it.year}"
+                }.lowercase()
                 textviewPurchaseValue.text = payment.value
             }
         }

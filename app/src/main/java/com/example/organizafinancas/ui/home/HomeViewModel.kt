@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Payment
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class HomeViewModel : ViewModel() {
 
@@ -43,6 +44,7 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun setPaymentList(currentPaymentList: MutableList<Payment>?) {
+        currentPaymentList?.sortDescending()
         _filteredPaymentList.value = currentPaymentList
     }
 
@@ -58,9 +60,18 @@ class HomeViewModel : ViewModel() {
 
     private fun providePurchaseList() =
         mutableListOf(
-            Payment(type = PaymentTypeEnum.CREDITO),
-            Payment(type = PaymentTypeEnum.DEBITO),
-            Payment(type = PaymentTypeEnum.PIX),
+            Payment(
+                type = PaymentTypeEnum.CREDITO,
+                date = LocalDate.of(2024,4,10)
+            ),
+            Payment(
+                type = PaymentTypeEnum.DEBITO,
+                date = LocalDate.of(2024,4,9)
+            ),
+            Payment(
+                type = PaymentTypeEnum.PIX,
+                date = LocalDate.of(2024,4,8)
+            ),
             Payment(type = PaymentTypeEnum.DINHEIRO),
             Payment(type = PaymentTypeEnum.VR),
             Payment(type = PaymentTypeEnum.VR),

@@ -12,7 +12,8 @@ class FilterAdapter(
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = ItemFilterOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemFilterOptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -23,16 +24,16 @@ class FilterAdapter(
         holder.bind(option, onItemClicked)
     }
 
-    inner class ViewHolder(private val binding: ItemFilterOptionBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(option: PaymentTypeEnum, onItemClicked: (PaymentTypeEnum, Boolean) -> Unit) {
-            with(binding.checkboxFilterOption){
+            with(binding.checkboxFilterOption) {
                 text = option.paymentType
                 setOnCheckedChangeListener { _, isChecked ->
                     onItemClicked(option, isChecked)
                 }
             }
         }
-
     }
 }
