@@ -5,7 +5,7 @@ import java.time.LocalDate
 
 data class Payment(
     val name: String = "Mercado pago",
-    val type: PaymentTypeEnum = PaymentTypeEnum.CREDITO,
+    val type: PaymentTypeEnum = PaymentTypeEnum.CREDIT,
     val date: LocalDate = LocalDate.now(),
     val value: String = "R$ 20,00",
 ): Comparable<Payment>{
