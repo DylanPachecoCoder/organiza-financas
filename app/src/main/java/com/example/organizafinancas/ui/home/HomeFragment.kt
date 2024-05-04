@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.organizafinancas.commons.toCurrency
+import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.ui.adapter.FilterAdapter
 import com.example.organizafinancas.ui.adapter.PaymentAdapter
-import java.text.NumberFormat
 
 class HomeFragment : Fragment() {
 
@@ -53,7 +52,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupPaymentList(paymentList: List<Payment>?) {
-        binding.recyclerviewPurchase.adapter = PaymentAdapter(paymentList ?: listOf())
+        binding.recyclerviewPurchase.adapter = PaymentAdapter(paymentList.orEmpty())
     }
 
     private fun setupFilterList(filterList: List<PaymentTypeEnum>) {

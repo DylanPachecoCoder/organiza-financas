@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Payment
 import kotlinx.coroutines.launch
@@ -49,7 +50,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun sumValues(): Double {
-        var sum = 0.0
+        var sum = Double.ZERO
         _filteredPaymentList.value?.forEach {
             sum+= it.value
         }
