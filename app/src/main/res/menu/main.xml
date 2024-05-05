@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_item_one"
-        android:title="@string/toolbar_icon_title_periodo"
+        android:title="@string/period_filter_edit_period"
         android:icon="@drawable/ic_calendar"
         app:showAsAction="ifRoom" />
 
