@@ -3,6 +3,7 @@ package com.example.organizafinancas.ui.periodfilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.organizafinancas.commons.di.provideDataPicker
@@ -25,6 +26,12 @@ class PeriodFilterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setupList()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.clear()
+        super.onPrepareOptionsMenu(menu)
     }
 
     private fun setupList() {

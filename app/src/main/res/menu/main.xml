@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_item_one"
+        android:id="@+id/nav_period_filter"
         android:title="@string/period_filter_edit_period"
         android:icon="@drawable/ic_calendar"
         app:showAsAction="ifRoom" />

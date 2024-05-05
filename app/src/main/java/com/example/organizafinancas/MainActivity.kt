@@ -22,16 +22,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setSupportActionBar(binding.appBarMain.toolbar)
-
         navController = findNavController(R.id.nav_host_fragment_content_main)
-
         appBarConfiguration =
-            AppBarConfiguration(
-                setOf(
-                    R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
-                ), binding.drawerLayout
-            )
+            AppBarConfiguration(setOf(R.id.nav_home), binding.drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
@@ -43,8 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.action_item_one ->
-                navController.navigate(R.id.nav_period_filter)
+            R.id.nav_period_filter -> navController.navigate(R.id.nav_period_filter)
         }
         return super.onOptionsItemSelected(item)
     }
