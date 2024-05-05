@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:id="@+id/textview_period_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/subtitle_font_size"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="crédito" />
+
+    <TextView
+        android:id="@+id/textview_period_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_font_size"
+        android:layout_marginTop="@dimen/marin_small"
+        app:layout_constraintTop_toBottomOf="@+id/textview_period_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/period_filter_from" />
+
+    <TextView
+        android:id="@+id/textview_period_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_font_size"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintStart_toEndOf="@+id/textview_period_from"
+        app:layout_constraintTop_toTopOf="@+id/textview_period_from"
+        tools:text="27 abr 2024" />
+
+    <TextView
+        android:id="@+id/textview_period_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_font_size"
+        app:layout_constraintStart_toStartOf="@id/textview_period_from"
+        app:layout_constraintTop_toBottomOf="@id/textview_period_from"
+        android:text="@string/period_filter_to" />
+
+    <TextView
+        android:id="@+id/textview_period_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_font_size"
+        app:layout_constraintStart_toStartOf="@id/textview_period_from_date"
+        app:layout_constraintTop_toTopOf="@id/textview_period_to"
+        tools:text="27 Mai 2024" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_calendar_green"
+        app:layout_constraintTop_toTopOf="@+id/textview_period_from"
+        app:layout_constraintBottom_toBottomOf="@+id/textview_period_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/period_filter_edit_period" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintStart_toStartOf="@id/textview_period_to"
+        app:layout_constraintTop_toBottomOf="@id/textview_period_to" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
