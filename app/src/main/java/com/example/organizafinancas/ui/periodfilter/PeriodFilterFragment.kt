@@ -5,14 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.di.provideDataPicker
-import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
 import com.example.organizafinancas.domain.model.Period
-import com.example.organizafinancas.ui.adapter.PaymentAdapter
 import com.example.organizafinancas.ui.adapter.PeriodFilterAdapter
-import com.google.android.material.datepicker.MaterialDatePicker
 
 class PeriodFilterFragment : Fragment() {
 
@@ -34,7 +30,7 @@ class PeriodFilterFragment : Fragment() {
     private fun setupList() {
         binding.recyclerviewPeriodFilter.adapter = PeriodFilterAdapter(providePeriodList()) {
             val picker = provideDataPicker()
-            picker.show(parentFragmentManager, TAG);
+            picker.show(parentFragmentManager, TAG)
         }
     }
 
