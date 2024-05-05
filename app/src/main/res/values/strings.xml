@@ -10,5 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="purchases_total">Total</string>
+    <string name="payments_title">Seus pagamentos</string>
+    <string name="payments_total">Total</string>
+    <string name="toolbar_icon_title_periodo">Periodo</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.organizafinancas.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.ItemPurchaseDetailBinding
 import com.example.organizafinancas.domain.model.Payment
@@ -29,9 +30,7 @@ class PaymentAdapter(
                 textviewPurchaseName.text = payment.name
                 textviewPurchaseType.text = payment.type.paymentType
                 textviewPurchaseValue.text = payment.value.toCurrency()
-                textviewPurchaseDate.text = payment.date.let {
-                    "${it.dayOfMonth} ${it.month}"
-                }.lowercase()
+                textviewPurchaseDate.text = payment.date.format()
             }
         }
     }
