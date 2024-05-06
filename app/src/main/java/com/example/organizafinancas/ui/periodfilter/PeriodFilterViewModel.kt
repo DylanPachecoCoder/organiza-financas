@@ -27,8 +27,8 @@ class PeriodFilterViewModel(
     fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentFilter) {
         val first = createLocalDate(initialDate)
         val second = createLocalDate(finishDate)
-        val copy = paymentFilter.copy(initialDate = first, finishDate = second)
-        repository.updateFilter(paymentFilter, copy)
+        val paymentFilterEdited = paymentFilter.copy(initialDate = first, finishDate = second)
+        repository.updateFilter(paymentFilter, paymentFilterEdited)
         fetchFilterList()
     }
 
