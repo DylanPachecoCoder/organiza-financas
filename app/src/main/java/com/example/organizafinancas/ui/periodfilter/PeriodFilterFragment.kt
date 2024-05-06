@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentFilter
-import com.example.organizafinancas.ui.adapter.PeriodFilterAdapter
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class PeriodFilterFragment : Fragment() {

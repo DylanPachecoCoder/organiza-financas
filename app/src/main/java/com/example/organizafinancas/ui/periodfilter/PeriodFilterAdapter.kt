@@ -1,4 +1,4 @@
-package com.example.organizafinancas.ui.adapter
+package com.example.organizafinancas.ui.periodfilter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

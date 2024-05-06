@@ -10,8 +10,6 @@ import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentFilter
-import com.example.organizafinancas.ui.adapter.FilterAdapter
-import com.example.organizafinancas.ui.adapter.PaymentAdapter
 
 class HomeFragment : Fragment() {
 
