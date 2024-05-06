@@ -49,7 +49,7 @@ class PeriodFilterFragment : Fragment() {
         }
     }
 
-    private fun setupDataPicker(filter: PaymentFilter) {
+    private fun setupDataPicker(filter: PaymentFilter, position: Int) {
         MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(filter.type.paymentType)
             .setPositiveButtonText(DATA_PICKER_POSITIVE_BUTTON)
@@ -57,6 +57,7 @@ class PeriodFilterFragment : Fragment() {
             .build().apply {
                 addOnPositiveButtonClickListener {
                     viewModel.changeDate(it.first, it.second, filter)
+                    binding.recyclerviewPeriodFilter.adapter?.notifyItemChanged(position)
                 }
             }.show(parentFragmentManager, TAG)
     }
