@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import com.example.organizafinancas.commons.di.provideDataPicker
+import androidx.lifecycle.ViewModelProvider
+import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
-import com.example.organizafinancas.domain.model.Period
+import com.example.organizafinancas.domain.model.PaymentFilter
 import com.example.organizafinancas.ui.adapter.PeriodFilterAdapter
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class PeriodFilterFragment : Fragment() {
 
     private var _binding: FragmentPeriodFilterBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by lazy {
+        ViewModelProvider(this)[PeriodFilterViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +31,27 @@ class PeriodFilterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setupList()
         setHasOptionsMenu(true)
+        setupObservers()
+        viewModel.fetchFilterList()
+    }
+
+    private fun setupObservers() {
+        viewModel.filterList.observe(viewLifecycleOwner) {
+            binding.recyclerviewPeriodFilter.adapter = PeriodFilterAdapter(it, ::setupDataPicker)
+        }
+    }
+
+    private fun setupDataPicker(filter: PaymentFilter) {
+        MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(filter.type.paymentType)
+            .setPositiveButtonText(DATA_PICKER_POSITIVE_BUTTON)
+            .setSelection(filter.getDataRange())
+            .build().apply {
+                addOnPositiveButtonClickListener {
+                    viewModel.changeDate(it.first, it.second, filter)
+                }
+            }.show(parentFragmentManager, TAG)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -34,22 +59,8 @@ class PeriodFilterFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
     }
 
-    private fun setupList() {
-        binding.recyclerviewPeriodFilter.adapter = PeriodFilterAdapter(providePeriodList()) {
-            val picker = provideDataPicker()
-            picker.show(parentFragmentManager, TAG)
-        }
-    }
-
-    private fun providePeriodList() = listOf(
-        Period(),
-        Period(),
-        Period(),
-        Period(),
-        Period(),
-    )
-
-    companion object{
+    companion object {
         private const val TAG = "tag"
+        private const val DATA_PICKER_POSITIVE_BUTTON = "confirmar"
     }
 }

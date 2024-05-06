@@ -5,85 +5,68 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.ZERO
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
+import com.example.organizafinancas.data.Repository
 import com.example.organizafinancas.domain.model.Payment
+import com.example.organizafinancas.domain.model.PaymentFilter
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val repository: Repository = Repository.getInstance()
+) : ViewModel() {
 
     private var paymentList: List<Payment>? = null
 
-    private val _filterList = MutableLiveData<List<PaymentTypeEnum>>()
-    val filterList: LiveData<List<PaymentTypeEnum>> = _filterList
+    private val _filterList = MutableLiveData<MutableList<PaymentFilter>>()
+    val filterList: LiveData<MutableList<PaymentFilter>> = _filterList
 
     private val _filteredPaymentList = MutableLiveData<MutableList<Payment>?>()
     val filteredPaymentList: LiveData<MutableList<Payment>?> = _filteredPaymentList
 
     fun fetchFilterList() {
         viewModelScope.launch {
-            _filterList.value = provideFilterList()
+            _filterList.value = repository.fetchFilters()
         }
     }
 
     fun fetchPaymentList() {
         viewModelScope.launch {
-            paymentList = providePurchaseList()
+            paymentList = repository.fetchPayments()
             setPaymentList(paymentList?.toMutableList())
         }
     }
 
-    fun filterList(option: PaymentTypeEnum, isChecked: Boolean) {
-        val selectedPaymentsList = paymentList?.filter { it.type == option }.orEmpty()
+    fun filterList(option: PaymentFilter, isChecked: Boolean) {
+        val selectedPaymentsList = paymentList?.filter { it.type == option.type }.orEmpty()
         val currentPaymentList = _filteredPaymentList.value
         if (isChecked) {
             currentPaymentList?.addAll(selectedPaymentsList)
-        }else{
+        } else {
             currentPaymentList?.removeAll(selectedPaymentsList)
         }
         setPaymentList(currentPaymentList)
     }
 
-    private fun setPaymentList(currentPaymentList: MutableList<Payment>?) {
-        currentPaymentList?.sortDescending()
-        _filteredPaymentList.value = currentPaymentList
+    private fun filterDate(paymentList: MutableList<Payment>?) =
+        paymentList?.filter { payment ->
+            filterList.value?.any { filter ->
+                filter.type == payment.type
+                        && filter.initialDate <= payment.date
+                        && filter.finishDate >= payment.date
+            } ?: false
+        }.orEmpty()
+
+
+    private fun setPaymentList(paymentList: MutableList<Payment>?) {
+        val listFilteredByDate = filterDate(paymentList).toMutableList()
+        listFilteredByDate.sortDescending()
+        _filteredPaymentList.value = listFilteredByDate
     }
 
     fun sumValues(): Double {
         var sum = Double.ZERO
         _filteredPaymentList.value?.forEach {
-            sum+= it.value
+            sum += it.value
         }
         return sum
     }
-
-    private fun provideFilterList() =
-        mutableListOf(
-            PaymentTypeEnum.CREDIT,
-            PaymentTypeEnum.DEBIT,
-            PaymentTypeEnum.CASH,
-            PaymentTypeEnum.PIX,
-        )
-
-    private fun providePurchaseList() =
-        mutableListOf(
-            Payment(
-                type = PaymentTypeEnum.CREDIT,
-                date = LocalDate.of(2024,4,10)
-            ),
-            Payment(
-                type = PaymentTypeEnum.DEBIT,
-                date = LocalDate.of(2024,4,9)
-            ),
-            Payment(
-                type = PaymentTypeEnum.PIX,
-                date = LocalDate.of(2024,4,8)
-            ),
-            Payment(type = PaymentTypeEnum.CASH),
-            Payment(type = PaymentTypeEnum.CREDIT),
-            Payment(type = PaymentTypeEnum.CREDIT),
-            Payment(type = PaymentTypeEnum.DEBIT),
-            Payment(type = PaymentTypeEnum.DEBIT),
-            Payment(type = PaymentTypeEnum.PIX),
-        )
 }
