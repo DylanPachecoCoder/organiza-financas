@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentFilter
@@ -32,7 +33,14 @@ class PeriodFilterFragment : Fragment() {
         super.onStart()
         setHasOptionsMenu(true)
         setupObservers()
+        setupListeners()
         viewModel.fetchFilterList()
+    }
+
+    private fun setupListeners() {
+        binding.buttonPeriodFilter.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setupObservers() {

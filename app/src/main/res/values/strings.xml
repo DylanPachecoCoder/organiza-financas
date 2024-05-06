@@ -16,4 +16,5 @@
     <string name="period_filter_edit_period">Editar periodo</string>
     <string name="period_filter_from">De</string>
     <string name="period_filter_to">Até</string>
+    <string name="period_filter_button">confirmar</string>
 </resources>
