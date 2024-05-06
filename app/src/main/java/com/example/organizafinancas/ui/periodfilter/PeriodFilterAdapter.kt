@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.databinding.ItemPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentFilter
@@ -22,7 +23,7 @@ class PeriodFilterAdapter(
     override fun getItemCount() = paymentFilterList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val isLast = position == itemCount - 1
+        val isLast = position == itemCount - Int.ONE
         holder.bind(paymentFilterList[position], isLast)
     }
 

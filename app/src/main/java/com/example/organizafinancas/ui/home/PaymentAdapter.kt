@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.ItemPurchaseDetailBinding
@@ -22,7 +23,7 @@ class PaymentAdapter(
     override fun getItemCount() = paymentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val isLast = position == itemCount - 1
+        val isLast = position == itemCount - Int.ONE
         holder.bind(paymentList[position], isLast)
     }
 
