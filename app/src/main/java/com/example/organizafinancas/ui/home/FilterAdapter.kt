@@ -1,14 +1,14 @@
-package com.example.organizafinancas.ui.adapter
+package com.example.organizafinancas.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemFilterOptionBinding
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
+import com.example.organizafinancas.domain.model.PaymentFilter
 
 class FilterAdapter(
-    private val filterOptions: List<PaymentTypeEnum> = mutableListOf(),
-    private val onItemClicked: (PaymentTypeEnum, Boolean) -> Unit
+    private val filterOptions: List<PaymentFilter> = mutableListOf(),
+    private val onItemClicked: (PaymentFilter, Boolean) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,9 +27,9 @@ class FilterAdapter(
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: PaymentTypeEnum, onItemClicked: (PaymentTypeEnum, Boolean) -> Unit) {
+        fun bind(option: PaymentFilter, onItemClicked: (PaymentFilter, Boolean) -> Unit) {
             with(binding.checkboxFilterOption) {
-                text = option.paymentType
+                text = option.type.paymentType
                 setOnCheckedChangeListener { _, isChecked ->
                     onItemClicked(option, isChecked)
                 }

@@ -8,8 +8,14 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.organizafinancas.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/payments_title"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_period_filter"
+        android:name="com.example.organizafinancas.ui.periodfilter.PeriodFilterFragment"
+        android:label="@string/period_filter_title"
+        tools:layout="@layout/fragment_period_filter" />
 
     <fragment
         android:id="@+id/nav_gallery"
