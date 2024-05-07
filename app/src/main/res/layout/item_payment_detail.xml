@@ -8,7 +8,7 @@
     android:layout_marginTop="@dimen/activity_horizontal_margin">
 
     <TextView
-        android:id="@+id/textview_purchase_name"
+        android:id="@+id/textview_payment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_font_size"
@@ -17,33 +17,33 @@
         tools:text="Mercado pago" />
 
     <TextView
-        android:id="@+id/textview_purchase_type"
+        android:id="@+id/textview_payment_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_font_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textview_purchase_name"
+        app:layout_constraintTop_toTopOf="@id/textview_payment_name"
         tools:text="crédito" />
 
     <TextView
-        android:id="@+id/textview_purchase_date"
+        android:id="@+id/textview_payment_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:textSize="@dimen/text_font_size"
         app:layout_constraintBottom_toTopOf="@id/divider"
-        app:layout_constraintStart_toStartOf="@id/textview_purchase_name"
-        app:layout_constraintTop_toBottomOf="@id/textview_purchase_name"
+        app:layout_constraintStart_toStartOf="@id/textview_payment_name"
+        app:layout_constraintTop_toBottomOf="@id/textview_payment_name"
         tools:text="10/04/24" />
 
     <TextView
-        android:id="@+id/textview_purchase_value"
+        android:id="@+id/textview_payment_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_font_size"
-        app:layout_constraintBottom_toBottomOf="@id/textview_purchase_date"
-        app:layout_constraintEnd_toEndOf="@id/textview_purchase_type"
-        app:layout_constraintTop_toBottomOf="@+id/textview_purchase_type"
+        app:layout_constraintBottom_toBottomOf="@id/textview_payment_date"
+        app:layout_constraintEnd_toEndOf="@id/textview_payment_type"
+        app:layout_constraintTop_toBottomOf="@+id/textview_payment_type"
         tools:text="R$ 20,00" />
 
     <com.google.android.material.divider.MaterialDivider
@@ -53,7 +53,7 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:background="@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/textview_purchase_value"
-        app:layout_constraintStart_toStartOf="@id/textview_purchase_date" />
+        app:layout_constraintEnd_toEndOf="@id/textview_payment_value"
+        app:layout_constraintStart_toStartOf="@id/textview_payment_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

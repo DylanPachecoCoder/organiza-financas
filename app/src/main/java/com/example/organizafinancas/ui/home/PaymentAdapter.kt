@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.commons.extensions.toCurrency
-import com.example.organizafinancas.databinding.ItemPurchaseDetailBinding
+import com.example.organizafinancas.databinding.ItemPaymentDetailBinding
 import com.example.organizafinancas.domain.model.Payment
 
 class PaymentAdapter(
@@ -16,7 +16,7 @@ class PaymentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            ItemPurchaseDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPaymentDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -27,15 +27,15 @@ class PaymentAdapter(
         holder.bind(paymentList[position], isLast)
     }
 
-    inner class ViewHolder(private val binding: ItemPurchaseDetailBinding) :
+    inner class ViewHolder(private val binding: ItemPaymentDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(payment: Payment, isLast: Boolean) {
             with(binding) {
-                textviewPurchaseName.text = payment.name
-                textviewPurchaseType.text = payment.type.paymentType
-                textviewPurchaseValue.text = payment.value.toCurrency()
-                textviewPurchaseDate.text = payment.date.format()
+                textviewPaymentName.text = payment.name
+                textviewPaymentType.text = payment.type.paymentType
+                textviewPaymentValue.text = payment.value.toCurrency()
+                textviewPaymentDate.text = payment.date.format()
                 divider.isVisible = isLast.not()
             }
         }
