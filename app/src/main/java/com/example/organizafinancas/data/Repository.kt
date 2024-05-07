@@ -1,6 +1,7 @@
 package com.example.organizafinancas.data
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
+import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.example.organizafinancas.domain.model.SelectableFilter
@@ -48,6 +49,7 @@ class Repository private constructor() {
             ),
             Payment(
                 name = "teste 2",
+                category = Filter("restaurante"),
                 type = PaymentTypeEnum.CASH,
                 date = LocalDate.of(2024, 5, 9)
             ),
