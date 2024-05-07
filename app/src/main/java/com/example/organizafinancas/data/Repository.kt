@@ -13,14 +13,20 @@ class Repository private constructor() {
     }
 
     fun fetchPayments(): MutableList<Payment> {
-        paymentList.sortDescending()
-        return paymentList
+        val filteredPaymentList = applyFilters(paymentList).toMutableList()
+        filteredPaymentList.sortDescending()
+        return filteredPaymentList
     }
 
-    fun updateFilter(oldFilter: PaymentFilter, newFilter: PaymentFilter) {
-        filterList.remove(oldFilter)
-        filterList.add(newFilter)
-    }
+    private fun applyFilters(paymentList: MutableList<Payment>?) =
+        paymentList?.filter { payment ->
+            filterList.any { filter ->
+                filter.type == payment.type
+                        && filter.isSelected
+                        && filter.initialDate <= payment.date
+                        && filter.finishDate >= payment.date
+            }
+        }.orEmpty()
 
     private val paymentList =
         mutableListOf(
@@ -52,22 +58,26 @@ class Repository private constructor() {
             PaymentFilter(
                 PaymentTypeEnum.CREDIT,
                 LocalDate.of(2024, 4, 24),
-                LocalDate.of(2024, 5, 23)
+                LocalDate.of(2024, 5, 23),
+                true
             ),
             PaymentFilter(
                 PaymentTypeEnum.DEBIT,
                 LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26)
+                LocalDate.of(2024, 5, 26),
+                true
             ),
             PaymentFilter(
                 PaymentTypeEnum.CASH,
                 LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26)
+                LocalDate.of(2024, 5, 26),
+                true
             ),
             PaymentFilter(
                 PaymentTypeEnum.PIX,
                 LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26)
+                LocalDate.of(2024, 5, 26),
+                true
             ),
         )
 

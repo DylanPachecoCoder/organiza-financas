@@ -8,7 +8,7 @@ import com.example.organizafinancas.domain.model.PaymentFilter
 
 class FilterAdapter(
     private val filterOptions: List<PaymentFilter> = mutableListOf(),
-    private val onItemClicked: (PaymentFilter, Boolean) -> Unit
+    private val onItemClicked: () -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,11 +27,13 @@ class FilterAdapter(
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: PaymentFilter, onItemClicked: (PaymentFilter, Boolean) -> Unit) {
+        fun bind(option: PaymentFilter, onItemClicked: () -> Unit) {
             with(binding.checkboxFilterOption) {
                 text = option.type.paymentType
+                isChecked = option.isSelected
                 setOnCheckedChangeListener { _, isChecked ->
-                    onItemClicked(option, isChecked)
+                    option.isSelected = isChecked
+                    onItemClicked()
                 }
             }
         }

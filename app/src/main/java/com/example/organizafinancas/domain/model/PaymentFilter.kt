@@ -5,8 +5,9 @@ import java.time.LocalDate
 
 data class PaymentFilter(
     val type: PaymentTypeEnum,
-    val initialDate: LocalDate,
-    val finishDate: LocalDate
+    var initialDate: LocalDate,
+    var finishDate: LocalDate,
+    var isSelected: Boolean
 ): Comparable<PaymentFilter>{
     override fun compareTo(other: PaymentFilter) = this.type.compareTo(other.type)
 }
