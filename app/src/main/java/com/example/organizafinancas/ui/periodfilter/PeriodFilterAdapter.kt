@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.databinding.ItemPeriodFilterBinding
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.PaymentTypeFilter
 
 class PeriodFilterAdapter(
-    private val paymentFilterList: List<PaymentFilter> = mutableListOf(),
-    private val onItemClick: (PaymentFilter, Int) -> Unit
+    private val paymentFilterList: List<PaymentTypeFilter> = mutableListOf(),
+    private val onItemClick: (PaymentTypeFilter, Int) -> Unit
 ) : RecyclerView.Adapter<PeriodFilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,9 +30,9 @@ class PeriodFilterAdapter(
     inner class ViewHolder(private val binding: ItemPeriodFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(paymentFilter: PaymentFilter, isLast: Boolean, position: Int) {
+        fun bind(paymentFilter: PaymentTypeFilter, isLast: Boolean, position: Int) {
             with(binding) {
-                textviewPeriodName.text = paymentFilter.type.paymentType
+                textviewPeriodName.text = paymentFilter.name
                 textviewPeriodFromDate.text = paymentFilter.initialDate.format()
                 textviewPeriodToDate.text = paymentFilter.finishDate.format()
                 divider.isVisible = isLast.not()

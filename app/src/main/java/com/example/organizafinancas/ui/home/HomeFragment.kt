@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.SelectableFilter
 
 class HomeFragment : Fragment() {
 
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         binding.recyclerviewPurchase.adapter = PaymentAdapter(paymentList.orEmpty())
     }
 
-    private fun setupFilterList(filterList: List<PaymentFilter>) {
+    private fun setupFilterList(filterList: List<SelectableFilter>) {
         binding.recyclerviewFilterOption.adapter = FilterAdapter(filterList, viewModel::fetchPaymentList)
     }
 

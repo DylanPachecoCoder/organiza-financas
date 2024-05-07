@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class PeriodFilterFragment : Fragment() {
@@ -49,9 +49,9 @@ class PeriodFilterFragment : Fragment() {
         }
     }
 
-    private fun setupDataPicker(filter: PaymentFilter, position: Int) {
+    private fun setupDataPicker(filter: PaymentTypeFilter, position: Int) {
         MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText(filter.type.paymentType)
+            .setTitleText(filter.name)
             .setPositiveButtonText(DATA_PICKER_POSITIVE_BUTTON)
             .setSelection(filter.getDataRange())
             .build().apply {
