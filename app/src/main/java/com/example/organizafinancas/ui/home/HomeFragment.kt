@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupFilterList(filterList: List<PaymentFilter>) {
-        binding.recyclerviewFilterOption.adapter = FilterAdapter(filterList, viewModel::filterList)
+        binding.recyclerviewFilterOption.adapter = FilterAdapter(filterList, viewModel::fetchPaymentList)
     }
 
     override fun onDestroyView() {

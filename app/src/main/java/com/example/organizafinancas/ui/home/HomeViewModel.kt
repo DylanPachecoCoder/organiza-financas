@@ -14,8 +14,6 @@ class HomeViewModel(
     private val repository: Repository = Repository.getInstance()
 ) : ViewModel() {
 
-    private var paymentList: List<Payment>? = null
-
     private val _filterList = MutableLiveData<MutableList<PaymentFilter>>()
     val filterList: LiveData<MutableList<PaymentFilter>> = _filterList
 
@@ -30,36 +28,8 @@ class HomeViewModel(
 
     fun fetchPaymentList() {
         viewModelScope.launch {
-            paymentList = repository.fetchPayments()
-            setPaymentList(paymentList?.toMutableList())
+            _filteredPaymentList.value = repository.fetchPayments()
         }
-    }
-
-    fun filterList(option: PaymentFilter, isChecked: Boolean) {
-        val selectedPaymentsList = paymentList?.filter { it.type == option.type }.orEmpty()
-        val currentPaymentList = _filteredPaymentList.value
-        if (isChecked) {
-            currentPaymentList?.addAll(selectedPaymentsList)
-        } else {
-            currentPaymentList?.removeAll(selectedPaymentsList)
-        }
-        setPaymentList(currentPaymentList)
-    }
-
-    private fun filterDate(paymentList: MutableList<Payment>?) =
-        paymentList?.filter { payment ->
-            filterList.value?.any { filter ->
-                filter.type == payment.type
-                        && filter.initialDate <= payment.date
-                        && filter.finishDate >= payment.date
-            } ?: false
-        }.orEmpty()
-
-
-    private fun setPaymentList(paymentList: MutableList<Payment>?) {
-        val listFilteredByDate = filterDate(paymentList).toMutableList()
-        listFilteredByDate.sortDescending()
-        _filteredPaymentList.value = listFilteredByDate
     }
 
     fun sumValues(): Double {
