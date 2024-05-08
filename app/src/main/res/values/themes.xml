@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.OrganizaFinancas" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.OrganizaFinancas" parent="Theme.Material3.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#0100CC</item>
         <item name="colorPrimaryVariant">#009671</item>
@@ -24,4 +24,11 @@
     <style name="Theme.OrganizaFinancas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OrganizaFinancas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.OrganizaFinancas.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/background_color_chip_filter</item>
+        <item name="android:textColor">@color/text_color_chip_filter</item>
+        <item name="checkedIcon">@drawable/ic_chip_check</item>
+    </style>
+
 </resources>
