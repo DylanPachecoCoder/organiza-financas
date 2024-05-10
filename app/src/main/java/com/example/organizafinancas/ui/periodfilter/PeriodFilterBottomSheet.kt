@@ -1,37 +1,45 @@
 package com.example.organizafinancas.ui.periodfilter
 
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.organizafinancas.commons.extensions.getDataRange
-import com.example.organizafinancas.databinding.FragmentPeriodFilterBinding
+import com.example.organizafinancas.databinding.ModalBottomSheetContentBinding
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class PeriodFilterFragment : Fragment() {
+class PeriodFilterBottomSheet(private val onDismiss: () -> Unit) : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentPeriodFilterBinding? = null
+    private var _binding: ModalBottomSheetContentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider(this)[PeriodFilterViewModel::class.java]
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPeriodFilterBinding.inflate(inflater, container, false)
+        _binding = ModalBottomSheetContentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        BottomSheetBehavior.from(binding.standardBottomSheet).apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            isDraggable = false
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        setHasOptionsMenu(true)
         setupObservers()
         setupListeners()
         viewModel.fetchFilterList()
@@ -39,13 +47,19 @@ class PeriodFilterFragment : Fragment() {
 
     private fun setupListeners() {
         binding.buttonPeriodFilter.setOnClickListener {
-            findNavController().popBackStack()
+            dismiss()
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismiss()
     }
 
     private fun setupObservers() {
         viewModel.filterList.observe(viewLifecycleOwner) {
             binding.recyclerviewPeriodFilter.adapter = PeriodFilterAdapter(it, ::setupDataPicker)
+
         }
     }
 
@@ -59,16 +73,12 @@ class PeriodFilterFragment : Fragment() {
                     viewModel.changeDate(it.first, it.second, filter)
                     binding.recyclerviewPeriodFilter.adapter?.notifyItemChanged(position)
                 }
-            }.show(parentFragmentManager, TAG)
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.clear()
-        super.onPrepareOptionsMenu(menu)
+            }.show(parentFragmentManager, DATA_PICKER_TAG)
     }
 
     companion object {
-        private const val TAG = "tag"
+        const val BOTTOM_SHEET_TAG = "ModalBottomSheet"
+        private const val DATA_PICKER_TAG = "tag"
         private const val DATA_PICKER_POSITIVE_BUTTON = "confirmar"
     }
 }

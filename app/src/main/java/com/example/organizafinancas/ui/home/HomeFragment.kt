@@ -14,6 +14,7 @@ import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 
 class HomeFragment : Fragment() {
 
@@ -47,8 +48,8 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_period_filter -> {
-                ModalBottomSheet(viewModel::fetchPaymentList)
-                    .show(parentFragmentManager, ModalBottomSheet.BOTTOM_SHEET_TAG)
+                PeriodFilterBottomSheet(viewModel::fetchPaymentList)
+                    .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
             }
         }
         return super.onOptionsItemSelected(item)
