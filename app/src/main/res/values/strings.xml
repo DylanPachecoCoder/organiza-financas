@@ -17,4 +17,5 @@
     <string name="period_filter_from">De</string>
     <string name="period_filter_to">Até</string>
     <string name="period_filter_button">confirmar</string>
+    <string name="bottomsheet_title">Selecione os períodos que deseja</string>
 </resources>

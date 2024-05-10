@@ -2,10 +2,14 @@ package com.example.organizafinancas.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentHomeBinding
 import com.example.organizafinancas.domain.model.Payment
@@ -30,9 +34,24 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        setHasOptionsMenu(true)
         setupObservers()
         viewModel.fetchFilterList()
         viewModel.fetchPaymentList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_period_filter -> {
+                ModalBottomSheet(viewModel::fetchPaymentList)
+                    .show(parentFragmentManager, ModalBottomSheet.BOTTOM_SHEET_TAG)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupObservers() {
@@ -54,7 +73,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupFilterList(filterList: List<SelectableFilter>) {
-        binding.recyclerviewFilterOption.adapter = FilterAdapter(filterList, viewModel::fetchPaymentList)
+        binding.recyclerviewFilterOption.adapter =
+            FilterAdapter(filterList, viewModel::fetchPaymentList)
     }
 
     override fun onDestroyView() {
