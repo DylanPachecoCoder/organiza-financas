@@ -1,4 +1,4 @@
-package com.example.organizafinancas.ui.home
+package com.example.organizafinancas.ui.payment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class PaymentViewModel(
     private val repository: Repository = Repository.getInstance()
 ) : ViewModel() {
 

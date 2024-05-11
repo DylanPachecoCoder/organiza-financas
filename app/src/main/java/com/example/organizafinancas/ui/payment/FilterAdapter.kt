@@ -1,4 +1,4 @@
-package com.example.organizafinancas.ui.home
+package com.example.organizafinancas.ui.payment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

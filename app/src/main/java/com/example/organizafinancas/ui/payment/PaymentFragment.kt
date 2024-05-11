@@ -1,4 +1,4 @@
-package com.example.organizafinancas.ui.home
+package com.example.organizafinancas.ui.payment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.extensions.toCurrency
-import com.example.organizafinancas.databinding.FragmentHomeBinding
+import com.example.organizafinancas.databinding.FragmentPaymentBinding
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 
-class HomeFragment : Fragment() {
+class PaymentFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
+        ViewModelProvider(this)[PaymentViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
