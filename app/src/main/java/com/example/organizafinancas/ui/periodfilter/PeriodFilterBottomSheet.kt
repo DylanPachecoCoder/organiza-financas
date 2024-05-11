@@ -13,7 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class PeriodFilterBottomSheet(private val onDismiss: () -> Unit) : BottomSheetDialogFragment() {
+class PeriodFilterBottomSheet(
+    private val onDismiss: () -> Unit = {}
+) : BottomSheetDialogFragment() {
 
     private var _binding: ModalBottomSheetContentBinding? = null
     private val binding get() = _binding!!
