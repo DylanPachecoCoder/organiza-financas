@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
@@ -20,9 +20,7 @@ class PaymentFragment : Fragment() {
 
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy {
-        ViewModelProvider(this)[PaymentViewModel::class.java]
-    }
+    private val viewModel by viewModels<PaymentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

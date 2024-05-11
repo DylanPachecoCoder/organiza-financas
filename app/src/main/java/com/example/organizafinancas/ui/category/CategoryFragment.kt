@@ -6,27 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.organizafinancas.databinding.FragmentCategoryBinding
 
 class CategoryFragment : Fragment() {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<CategoryViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-                ViewModelProvider(this).get(CategoryViewModel::class.java)
-
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textGallery
-        galleryViewModel.text.observe(viewLifecycleOwner) {
+        viewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

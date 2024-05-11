@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.ModalBottomSheetContentBinding
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
@@ -17,9 +17,7 @@ class PeriodFilterBottomSheet(private val onDismiss: () -> Unit) : BottomSheetDi
 
     private var _binding: ModalBottomSheetContentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy {
-        ViewModelProvider(this)[PeriodFilterViewModel::class.java]
-    }
+    private val viewModel by viewModels<PeriodFilterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
