@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_payment">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_payment"
         android:name="com.example.organizafinancas.ui.payment.PaymentFragment"
         android:label="@string/payments_title"
         tools:layout="@layout/fragment_payment" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_category"
         android:name="com.example.organizafinancas.ui.category.CategoryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_category" />

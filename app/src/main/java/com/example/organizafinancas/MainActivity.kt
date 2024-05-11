@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.nav_home), binding.drawerLayout)
+            AppBarConfiguration(setOf(R.id.nav_payment), binding.drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
