@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/payments_total"
+            android:text="@string/payment_total"
             android:textSize="@dimen/subtitle_font_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,12 +61,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            tools:text="R$ 3467,98"
             android:textSize="@dimen/title_font_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textview_total_value_text"
-            app:layout_constraintTop_toBottomOf="@id/textview_total_value_text" />
+            app:layout_constraintTop_toBottomOf="@id/textview_total_value_text"
+            tools:text="R$ 3467,98" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="@style/Theme.OrganizaFinancas.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:contentDescription="@string/category_accessibility_fat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
