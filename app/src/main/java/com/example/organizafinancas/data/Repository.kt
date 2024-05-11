@@ -44,23 +44,28 @@ class Repository private constructor() {
         mutableListOf(
             Payment(
                 name = "teste 1",
+                category = Filter("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 28)
             ),
             Payment(
                 name = "teste 2",
-                category = Filter("restaurante"),
+                category = Filter("carro"),
                 type = PaymentTypeEnum.CASH,
                 date = LocalDate.of(2024, 5, 9)
             ),
             Payment(
                 name = "teste 3",
+                category = Filter("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 8)
             ),
-            Payment(type = PaymentTypeEnum.CASH),
-            Payment(type = PaymentTypeEnum.CREDIT),
-            Payment(type = PaymentTypeEnum.CREDIT),
+            Payment(type = PaymentTypeEnum.CASH,
+                category = Filter("mercado"),),
+            Payment(type = PaymentTypeEnum.CREDIT,
+                category = Filter("comida"),),
+            Payment(type = PaymentTypeEnum.CREDIT,
+                category = Filter("sair"),),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CREDIT),
@@ -76,6 +81,10 @@ class Repository private constructor() {
         mutableListOf(
             SelectableFilter("restaurante"),
             SelectableFilter("sem categoria"),
+            SelectableFilter("carro"),
+            SelectableFilter("mercado"),
+            SelectableFilter("comida"),
+            SelectableFilter("sair"),
         )
 
     companion object {
