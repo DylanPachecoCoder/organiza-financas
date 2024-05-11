@@ -35,7 +35,7 @@
         <item name="chipBackgroundColor">@color/background_color_chip_filter</item>
         <item name="android:textColor">@color/text_color_chip_filter</item>
         <item name="checkedIcon">@drawable/ic_chip_check</item>
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">10sp</item>
         <item name="chipStartPadding">4dp</item>
         <item name="chipEndPadding">4dp</item>
     </style>
