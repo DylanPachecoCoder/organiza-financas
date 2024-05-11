@@ -16,6 +16,8 @@ class Repository private constructor() {
 
     fun fetchPaymentFilters() = paymentFilterList
 
+    fun fetchCategoryFilters() = categoryFilterList
+
     fun fetchPayments() = mutableListOf<Payment>().apply {
         addAll(filterPayments(paymentList))
         sortDescending()
@@ -85,6 +87,9 @@ class Repository private constructor() {
             SelectableFilter("mercado"),
             SelectableFilter("comida"),
             SelectableFilter("sair"),
+            SelectableFilter("trabalho"),
+            SelectableFilter("gasolina"),
+            SelectableFilter("manutenção carro"),
         )
 
     companion object {
