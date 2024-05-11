@@ -68,7 +68,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun setupPaymentList(paymentList: List<Payment>?) {
-        binding.recyclerviewPurchase.adapter = PaymentAdapter(paymentList.orEmpty())
+        binding.recyclerviewPayment.adapter = PaymentAdapter(paymentList.orEmpty())
     }
 
     private fun setupFilterList(filterList: List<SelectableFilter>) {
