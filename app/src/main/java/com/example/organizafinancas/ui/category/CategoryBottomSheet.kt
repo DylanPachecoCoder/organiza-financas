@@ -1,16 +1,19 @@
 package com.example.organizafinancas.ui.category
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.organizafinancas.databinding.BottomSheetCategoryBinding
+import com.example.organizafinancas.domain.model.SelectableFilter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CategoryBottomSheet(
-    private val onDismiss: () -> Unit = {}
+    private val category: SelectableFilter? = null,
+    private val onConfirmButton: () -> SelectableFilter,
+    private val onDeleteButton: (() -> SelectableFilter)? = null
+
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetCategoryBinding? = null
@@ -31,10 +34,8 @@ class CategoryBottomSheet(
             state = BottomSheetBehavior.STATE_EXPANDED
             isDraggable = false
         }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        onDismiss()
+        category?.also {
+            binding.textField.editText?.setText(it.name)
+        }
     }
 }

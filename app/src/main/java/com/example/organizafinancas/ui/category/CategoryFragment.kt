@@ -17,9 +17,9 @@ class CategoryFragment : Fragment() {
     private val viewModel by viewModels<CategoryViewModel>()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,20 +33,31 @@ class CategoryFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.button.setOnClickListener {
-            CategoryBottomSheet()
-                .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
-        }
+        binding.button.setOnClickListener { showCategoryBottomSheet(onConfirmButton = {}) }
+    }
+
+    private fun showCategoryBottomSheet(
+        category: SelectableFilter? = null,
+        onConfirmButton: () -> Unit,
+        onDeleteButton: (() -> Unit)? = null
+    ) {
+        CategoryBottomSheet(
+            category,
+            onConfirmButton,
+            onDeleteButton
+        ).show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
     private fun setupObservers() {
-        viewModel.categories.observe(viewLifecycleOwner){
+        viewModel.categories.observe(viewLifecycleOwner) {
             setupList(it)
         }
     }
 
     private fun setupList(categoryList: List<SelectableFilter>) {
-        binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList)
+        binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList){
+            showCategoryBottomSheet(it, {})
+        }
     }
 
     override fun onDestroyView() {

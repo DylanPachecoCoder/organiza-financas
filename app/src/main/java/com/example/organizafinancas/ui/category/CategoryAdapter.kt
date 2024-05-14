@@ -7,7 +7,8 @@ import com.example.organizafinancas.databinding.ItemCategoryDetailBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
 
 class CategoryAdapter(
-    private val categoryList: List<SelectableFilter> = mutableListOf()
+    private val categoryList: List<SelectableFilter> = mutableListOf(),
+    private val onItemClicked: (category: SelectableFilter) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +29,9 @@ class CategoryAdapter(
         fun bind(category: SelectableFilter) {
             with(binding) {
                textviewCategoryName.text = category.name
+                card.setOnClickListener {
+                    onItemClicked(category)
+                }
             }
         }
     }

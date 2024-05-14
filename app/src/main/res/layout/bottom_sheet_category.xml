@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/standard_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottomsheet_size"
+        android:layout_height="250dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,21 +23,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="@string/bottomsheet_title"
+                android:text="Adicionar categoria"
                 android:textSize="@dimen/subtitle_font_size"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                app:layout_constraintTop_toBottomOf="@id/bottomsheet_title"
                 android:id="@+id/textField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/label">
+                android:layout_marginTop="@dimen/marin_large"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:hint="Categoria"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottomsheet_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
