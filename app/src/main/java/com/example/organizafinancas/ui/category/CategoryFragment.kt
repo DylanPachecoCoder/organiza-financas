@@ -33,18 +33,22 @@ class CategoryFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.button.setOnClickListener { showCategoryBottomSheet(onConfirmButton = {}) }
+        binding.button.setOnClickListener {
+            showCategoryBottomSheet(
+//                onConfirmButton = {}
+            )
+        }
     }
 
     private fun showCategoryBottomSheet(
         category: SelectableFilter? = null,
-        onConfirmButton: () -> Unit,
-        onDeleteButton: (() -> Unit)? = null
+//        onConfirmButton: () -> SelectableFilter,
+//        onDeleteButton: (() -> SelectableFilter)? = null
     ) {
         CategoryBottomSheet(
             category,
-            onConfirmButton,
-            onDeleteButton
+//            onConfirmButton,
+//            onDeleteButton
         ).show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
@@ -55,8 +59,8 @@ class CategoryFragment : Fragment() {
     }
 
     private fun setupList(categoryList: List<SelectableFilter>) {
-        binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList){
-            showCategoryBottomSheet(it, {})
+        binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList) {
+            showCategoryBottomSheet(it)
         }
     }
 

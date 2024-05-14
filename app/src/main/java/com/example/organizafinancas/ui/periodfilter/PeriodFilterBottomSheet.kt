@@ -1,42 +1,27 @@
 package com.example.organizafinancas.ui.periodfilter
 
 import android.content.DialogInterface
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.BottomSheetPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.organizafinancas.ui.base.BaseBottomSheet
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class PeriodFilterBottomSheet(
     private val onDismiss: () -> Unit = {}
-) : BottomSheetDialogFragment() {
+) : BaseBottomSheet<BottomSheetPeriodFilterBinding>() {
 
-    private var _binding: BottomSheetPeriodFilterBinding? = null
-    private val binding get() = _binding!!
     private val viewModel by viewModels<PeriodFilterViewModel>()
+    override val standardBottomSheet by lazy { binding.standardBottomSheet }
 
-    override fun onCreateView(
+    override fun inflateViewBind(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = BottomSheetPeriodFilterBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ) = BottomSheetPeriodFilterBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        BottomSheetBehavior.from(binding.standardBottomSheet).apply {
-            state = BottomSheetBehavior.STATE_EXPANDED
-            isDraggable = false
-        }
-    }
 
     override fun onStart() {
         super.onStart()
