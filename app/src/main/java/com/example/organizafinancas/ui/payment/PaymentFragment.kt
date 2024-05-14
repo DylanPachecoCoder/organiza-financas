@@ -48,12 +48,14 @@ class PaymentFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_period_filter -> {
-                PeriodFilterBottomSheet(viewModel::fetchPaymentList)
-                    .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
-            }
+            R.id.nav_period_filter -> showEditPeriodBottomSheet()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showEditPeriodBottomSheet() {
+        PeriodFilterBottomSheet(viewModel::fetchPaymentList)
+            .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
     private fun setupObservers() {

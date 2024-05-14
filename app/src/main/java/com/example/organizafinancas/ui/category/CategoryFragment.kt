@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.organizafinancas.databinding.FragmentCategoryBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 
 class CategoryFragment : Fragment() {
 
@@ -28,6 +29,14 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchCategories()
         setupObservers()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.button.setOnClickListener {
+            CategoryBottomSheet()
+                .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
+        }
     }
 
     private fun setupObservers() {

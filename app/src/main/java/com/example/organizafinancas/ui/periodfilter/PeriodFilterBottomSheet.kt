@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.organizafinancas.commons.extensions.getDataRange
-import com.example.organizafinancas.databinding.ModalBottomSheetContentBinding
+import com.example.organizafinancas.databinding.BottomSheetPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,7 +17,7 @@ class PeriodFilterBottomSheet(
     private val onDismiss: () -> Unit = {}
 ) : BottomSheetDialogFragment() {
 
-    private var _binding: ModalBottomSheetContentBinding? = null
+    private var _binding: BottomSheetPeriodFilterBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<PeriodFilterViewModel>()
 
@@ -26,7 +26,7 @@ class PeriodFilterBottomSheet(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ModalBottomSheetContentBinding.inflate(inflater, container, false)
+        _binding = BottomSheetPeriodFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
