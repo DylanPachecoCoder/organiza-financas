@@ -14,6 +14,7 @@
     <!-- Personalized -->
     <dimen name="marin_xsmall">4dp</dimen>
     <dimen name="marin_small">8dp</dimen>
+    <dimen name="marin_large">32dp</dimen>
     <dimen name="background_around">30dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="bottomsheet_size">450dp</dimen>

@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.organizafinancas.R
+import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
 import com.example.organizafinancas.domain.model.Payment
@@ -72,12 +75,20 @@ class PaymentFragment : Fragment() {
     }
 
     private fun setupFilterList(filterList: List<SelectableFilter>) {
-        binding.recyclerviewFilterOption.adapter =
-            FilterAdapter(filterList, viewModel::fetchPaymentList)
+        binding.recyclerviewFilterOption.apply {
+            val listQuantityLines = (filterList.size + Int.ONE) / MAX_FILTERS_PER_LINE
+            layoutManager =
+                StaggeredGridLayoutManager(listQuantityLines, LinearLayoutManager.HORIZONTAL)
+            adapter = FilterAdapter(filterList, viewModel::fetchPaymentList)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val MAX_FILTERS_PER_LINE = 5
     }
 }
