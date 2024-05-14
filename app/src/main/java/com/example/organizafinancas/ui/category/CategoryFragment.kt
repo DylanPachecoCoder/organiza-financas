@@ -4,26 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.organizafinancas.databinding.FragmentCategoryBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
-    private var _binding: FragmentCategoryBinding? = null
-    private val binding get() = _binding!!
     private val viewModel by viewModels<CategoryViewModel>()
 
-    override fun onCreateView(
+    override fun inflateViewBind(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ) = FragmentCategoryBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,10 +56,5 @@ class CategoryFragment : Fragment() {
         binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList) {
             showCategoryBottomSheet(it)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
