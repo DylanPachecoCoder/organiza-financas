@@ -44,7 +44,6 @@ class PeriodFilterBottomSheet(
     private fun setupObservers() {
         viewModel.filterList.observe(viewLifecycleOwner) {
             binding.recyclerviewPeriodFilter.adapter = PeriodFilterAdapter(it, ::setupDataPicker)
-
         }
     }
 

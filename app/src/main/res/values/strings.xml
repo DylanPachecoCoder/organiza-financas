@@ -24,6 +24,8 @@
 
     <!-- Category -->
     <string name="category_title">Categorias</string>
-    <string name="category_accessibility_fat">adicionar categoria</string>
+    <string name="category_bottomsheet_title_new">Adicionar categoria</string>
+    <string name="category_bottomsheet_title_edit">Editar categoria</string>
+    <string name="category_edittext_hint">Categoria</string>
 
 </resources>
