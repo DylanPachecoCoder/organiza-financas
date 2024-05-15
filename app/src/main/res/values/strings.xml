@@ -27,5 +27,6 @@
     <string name="category_bottomsheet_title_new">Adicionar categoria</string>
     <string name="category_bottomsheet_title_edit">Editar categoria</string>
     <string name="category_edittext_hint">Categoria</string>
+    <string name="category_delete_button_description">apagar categoria</string>
 
 </resources>

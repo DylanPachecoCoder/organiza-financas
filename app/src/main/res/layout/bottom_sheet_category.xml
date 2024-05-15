@@ -29,6 +29,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Adicionar categoria" />
 
+            <ImageButton
+                android:id="@+id/iconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottomsheet_title"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="@drawable/ic_delete"
+                android:visibility="gone"
+                android:contentDescription="@string/category_delete_button_description" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textField"
                 android:layout_width="match_parent"
