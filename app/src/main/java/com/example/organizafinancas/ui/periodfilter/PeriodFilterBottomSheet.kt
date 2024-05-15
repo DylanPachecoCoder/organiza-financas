@@ -22,7 +22,6 @@ class PeriodFilterBottomSheet(
         container: ViewGroup?
     ) = BottomSheetPeriodFilterBinding.inflate(inflater, container, false)
 
-
     override fun onStart() {
         super.onStart()
         setupObservers()

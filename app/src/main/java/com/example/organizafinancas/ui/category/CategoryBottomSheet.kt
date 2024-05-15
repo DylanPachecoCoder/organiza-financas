@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.example.organizafinancas.R
 import com.example.organizafinancas.databinding.BottomSheetCategoryBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
@@ -11,12 +12,12 @@ import com.example.organizafinancas.ui.base.BaseBottomSheet
 
 class CategoryBottomSheet(
     private val category: SelectableFilter? = null,
-//    private val onConfirmButton: () -> SelectableFilter,
-//    private val onDeleteButton: (() -> SelectableFilter)? = null,
+    private val onConfirmButton: (SelectableFilter?) -> Unit,
+    private val onDeleteButton: (SelectableFilter?) -> Unit
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
     override val standardBottomSheet by lazy {
-        binding.framelayoutBottomSheet
+        binding.framelayoutCategory
     }
 
     override fun inflateViewBind(
@@ -26,21 +27,44 @@ class CategoryBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
+        setupView()
+    }
+
+    private fun setupView() {
         if (category != null) {
-            setupEditCategory(category)
+            setupEditCategory()
         } else {
             setupNewCategory()
         }
     }
 
+    private fun setupListeners() {
+        with(binding){
+            buttonCategoryDelete.setOnClickListener {
+                onDeleteButton(category)
+                dismiss()
+            }
+            buttonCategorySave.setOnClickListener {
+                val categoryName = edittextCategoryName.editText?.text.toString()
+                val newCategory = SelectableFilter(categoryName)
+                onConfirmButton(newCategory)
+                dismiss()
+            }
+        }
+    }
+
     private fun setupNewCategory() {
-        binding.bottomsheetTitle.text =
+        binding.bottomsheetCategoryTitle.text =
             context?.getString(R.string.category_bottomsheet_title_new)
     }
 
-    private fun setupEditCategory(category: SelectableFilter) {
-        binding.edittextCategoryName.editText?.setText(category.name)
-        binding.bottomsheetTitle.text =
-            context?.getString(R.string.category_bottomsheet_title_edit)
+    private fun setupEditCategory() {
+        with(binding){
+            edittextCategoryName.editText?.setText(category?.name)
+            buttonCategoryDelete.isVisible = true
+            bottomsheetCategoryTitle.text =
+                context?.getString(R.string.category_bottomsheet_title_edit)
+        }
     }
 }

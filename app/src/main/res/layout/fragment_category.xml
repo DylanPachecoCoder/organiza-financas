@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button"
+        android:id="@+id/button_category_new"
         style="@style/Theme.OrganizaFinancas.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

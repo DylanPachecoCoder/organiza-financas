@@ -20,4 +20,8 @@ class CategoryViewModel(
             _categories.value = repository.fetchCategoryFilters()
         }
     }
+
+    fun saveCategory(category: SelectableFilter?) {
+        _categories.value = repository.saveCategory(category)
+    }
 }

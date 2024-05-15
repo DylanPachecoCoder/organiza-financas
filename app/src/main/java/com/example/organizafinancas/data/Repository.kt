@@ -42,6 +42,11 @@ class Repository private constructor() {
                     && filter.finishDate >= payment.date
         }
 
+    fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {  categoryFilterList.add(category) }
+        return categoryFilterList
+    }
+
     private val paymentList =
         mutableListOf(
             Payment(

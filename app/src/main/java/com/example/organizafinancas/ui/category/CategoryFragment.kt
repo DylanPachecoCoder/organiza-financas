@@ -27,22 +27,20 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     }
 
     private fun setupListeners() {
-        binding.button.setOnClickListener {
-            showCategoryBottomSheet(
-//                onConfirmButton = {}
-            )
+        binding.buttonCategoryNew.setOnClickListener {
+            showCategoryBottomSheet(onConfirmButton = viewModel::saveCategory)
         }
     }
 
     private fun showCategoryBottomSheet(
         category: SelectableFilter? = null,
-//        onConfirmButton: () -> SelectableFilter,
-//        onDeleteButton: (() -> SelectableFilter)? = null
+        onConfirmButton: (SelectableFilter?) -> Unit,
+        onDeleteButton: (SelectableFilter?) -> Unit = {}
     ) {
         CategoryBottomSheet(
             category,
-//            onConfirmButton,
-//            onDeleteButton
+            onConfirmButton,
+            onDeleteButton
         ).show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
@@ -54,7 +52,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     private fun setupList(categoryList: List<SelectableFilter>) {
         binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList) {
-            showCategoryBottomSheet(it)
+//            showCategoryBottomSheet(it){
+//
+//            }
         }
     }
 }
