@@ -16,7 +16,7 @@ class CategoryBottomSheet(
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
     override val standardBottomSheet by lazy {
-        binding.standardBottomSheet
+        binding.framelayoutBottomSheet
     }
 
     override fun inflateViewBind(
@@ -39,7 +39,7 @@ class CategoryBottomSheet(
     }
 
     private fun setupEditCategory(category: SelectableFilter) {
-        binding.textField.editText?.setText(category.name)
+        binding.edittextCategoryName.editText?.setText(category.name)
         binding.bottomsheetTitle.text =
             context?.getString(R.string.category_bottomsheet_title_edit)
     }

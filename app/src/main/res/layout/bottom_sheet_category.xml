@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <FrameLayout
-        android:id="@+id/standard_bottom_sheet"
+        android:id="@+id/framelayout_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
@@ -30,7 +30,7 @@
                 tools:text="Adicionar categoria" />
 
             <ImageButton
-                android:id="@+id/iconButton"
+                android:id="@+id/button_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
                 android:contentDescription="@string/category_delete_button_description" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField"
+                android:id="@+id/edittext_category_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"

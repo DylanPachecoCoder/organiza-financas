@@ -15,7 +15,7 @@ class PeriodFilterBottomSheet(
 ) : BaseBottomSheet<BottomSheetPeriodFilterBinding>() {
 
     private val viewModel by viewModels<PeriodFilterViewModel>()
-    override val standardBottomSheet by lazy { binding.standardBottomSheet }
+    override val standardBottomSheet by lazy { binding.framelayoutBottomSheet }
 
     override fun inflateViewBind(
         inflater: LayoutInflater,
