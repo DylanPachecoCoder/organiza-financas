@@ -47,6 +47,23 @@ class Repository private constructor() {
         return categoryFilterList
     }
 
+    fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {  categoryFilterList.remove(category) }
+        return categoryFilterList
+    }
+
+    fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {
+            categoryFilterList.forEach {
+                if (it.hashCode() == category.hashCode()){
+                    categoryFilterList.remove(it)
+                    categoryFilterList.add(category)
+                }
+            }
+        }
+        return categoryFilterList
+    }
+
     private val paymentList =
         mutableListOf(
             Payment(
@@ -92,9 +109,6 @@ class Repository private constructor() {
             SelectableFilter("mercado"),
             SelectableFilter("comida"),
             SelectableFilter("sair"),
-            SelectableFilter("trabalho"),
-            SelectableFilter("gasolina"),
-            SelectableFilter("manutenção carro"),
         )
 
     companion object {

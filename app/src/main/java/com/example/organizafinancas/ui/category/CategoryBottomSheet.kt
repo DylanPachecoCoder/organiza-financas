@@ -16,9 +16,7 @@ class CategoryBottomSheet(
     private val onDeleteButton: (SelectableFilter?) -> Unit
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
-    override val standardBottomSheet by lazy {
-        binding.framelayoutCategory
-    }
+    override val standardBottomSheet by lazy { binding.framelayoutCategory }
 
     override fun inflateViewBind(
         inflater: LayoutInflater,
@@ -40,19 +38,27 @@ class CategoryBottomSheet(
     }
 
     private fun setupListeners() {
-        with(binding){
+        with(binding) {
             buttonCategoryDelete.setOnClickListener {
                 onDeleteButton(category)
                 dismiss()
             }
             buttonCategorySave.setOnClickListener {
                 val categoryName = edittextCategoryName.editText?.text.toString()
-                val newCategory = SelectableFilter(categoryName)
+                val newCategory = getCategory(categoryName, category)
                 onConfirmButton(newCategory)
                 dismiss()
             }
         }
     }
+
+    private fun getCategory(categoryName: String, category: SelectableFilter?) =
+        if (category == null) {
+            SelectableFilter(categoryName)
+        } else {
+            category.name = categoryName
+            category
+        }
 
     private fun setupNewCategory() {
         binding.bottomsheetCategoryTitle.text =
@@ -60,7 +66,7 @@ class CategoryBottomSheet(
     }
 
     private fun setupEditCategory() {
-        with(binding){
+        with(binding) {
             edittextCategoryName.editText?.setText(category?.name)
             buttonCategoryDelete.isVisible = true
             bottomsheetCategoryTitle.text =

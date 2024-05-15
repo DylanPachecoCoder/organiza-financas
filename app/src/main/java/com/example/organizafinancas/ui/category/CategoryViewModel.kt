@@ -22,6 +22,20 @@ class CategoryViewModel(
     }
 
     fun saveCategory(category: SelectableFilter?) {
-        _categories.value = repository.saveCategory(category)
+        viewModelScope.launch {
+            _categories.value = repository.saveCategory(category)
+        }
+    }
+
+    fun deleteCategory(category: SelectableFilter?) {
+        viewModelScope.launch {
+            _categories.value = repository.deleteCategory(category)
+        }
+    }
+
+    fun updateCategory(category: SelectableFilter?) {
+        viewModelScope.launch {
+            _categories.value = repository.updateCategory(category)
+        }
     }
 }

@@ -14,10 +14,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     private val viewModel by viewModels<CategoryViewModel>()
 
-    override fun inflateViewBind(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ) = FragmentCategoryBinding.inflate(inflater, container, false)
+    override fun inflateViewBind(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentCategoryBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,24 +35,17 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         onConfirmButton: (SelectableFilter?) -> Unit,
         onDeleteButton: (SelectableFilter?) -> Unit = {}
     ) {
-        CategoryBottomSheet(
-            category,
-            onConfirmButton,
-            onDeleteButton
-        ).show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
+        CategoryBottomSheet(category, onConfirmButton, onDeleteButton)
+            .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
     private fun setupObservers() {
-        viewModel.categories.observe(viewLifecycleOwner) {
-            setupList(it)
-        }
+        viewModel.categories.observe(viewLifecycleOwner) { setupList(it) }
     }
 
     private fun setupList(categoryList: List<SelectableFilter>) {
         binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList) {
-//            showCategoryBottomSheet(it){
-//
-//            }
+            showCategoryBottomSheet(it, viewModel::updateCategory, viewModel::deleteCategory)
         }
     }
 }
