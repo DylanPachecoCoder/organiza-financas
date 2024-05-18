@@ -1,7 +1,7 @@
 package com.example.organizafinancas.commons.extensions
 
 import androidx.core.util.Pair
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.PaymentTypeFilter
 
-fun PaymentFilter.getDataRange() =
+fun PaymentTypeFilter.getDataRange() =
     Pair(initialDate.toMilliseconds(), finishDate.toMilliseconds())

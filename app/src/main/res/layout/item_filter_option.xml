@@ -3,31 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/marin_xsmall">
+    android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.chip.Chip
+        android:id="@+id/checkbox_filter_option"
+        style="@style/Theme.OrganizaFinancas.Chip.Filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="@dimen/background_around"
-        app:cardBackgroundColor="?attr/colorSecondaryVariant">
-
-        <CheckBox
-            android:id="@+id/checkbox_filter_option"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_font_size"
-            android:checked="true"
-            android:textColor="@color/white"
-            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem"/>
-
-    </androidx.cardview.widget.CardView>
+        tools:text="@tools:sample/lorem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

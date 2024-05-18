@@ -1,8 +1,6 @@
 package com.example.organizafinancas
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -26,21 +24,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.nav_home), binding.drawerLayout)
+            AppBarConfiguration(setOf(R.id.nav_payment, R.id.nav_category), binding.drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.nav_period_filter -> navController.navigate(R.id.nav_period_filter)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

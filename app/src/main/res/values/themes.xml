@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.OrganizaFinancas" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.OrganizaFinancas" parent="Theme.Material3.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#0100CC</item>
         <item name="colorPrimaryVariant">#009671</item>
@@ -24,4 +24,33 @@
     <style name="Theme.OrganizaFinancas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OrganizaFinancas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.OrganizaFinancas.Chip.Filter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/background_color_chip_filter</item>
+        <item name="android:textColor">@color/text_color_chip_filter</item>
+        <item name="checkedIcon">@drawable/ic_chip_check</item>
+    </style>
+
+    <style name="Theme.OrganizaFinancas.Chip.Suggestion" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/background_color_chip_filter</item>
+        <item name="android:textColor">@color/text_color_chip_filter</item>
+        <item name="checkedIcon">@drawable/ic_chip_check</item>
+        <item name="android:textSize">10sp</item>
+        <item name="chipStartPadding">4dp</item>
+        <item name="chipEndPadding">4dp</item>
+    </style>
+
+    <style name="Theme.OrganizaFinancas.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="srcCompat">@drawable/ic_plus_24</item>
+    </style>
+
+    <style name="Widget.Material3.FloatingActionButton.Primary" parent="Base.Widget.Material3.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.FloatingActionButton.Primary</item>
+    </style>
+
+    <style name="ThemeOverlay.Material3.FloatingActionButton.Primary" parent="">
+        <item name="colorContainer">?attr/colorSecondary</item>
+        <item name="colorOnContainer">@color/white</item>
+    </style>
+
 </resources>

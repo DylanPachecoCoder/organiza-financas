@@ -1,4 +1,4 @@
-package com.example.organizafinancas.ui.home
+package com.example.organizafinancas.ui.payment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,15 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.data.Repository
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.SelectableFilter
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class PaymentViewModel(
     private val repository: Repository = Repository.getInstance()
 ) : ViewModel() {
 
-    private val _filterList = MutableLiveData<MutableList<PaymentFilter>>()
-    val filterList: LiveData<MutableList<PaymentFilter>> = _filterList
+    private val _filterList = MutableLiveData<MutableList<SelectableFilter>>()
+    val filterList: LiveData<MutableList<SelectableFilter>> = _filterList
 
     private val _filteredPaymentList = MutableLiveData<MutableList<Payment>?>()
     val filteredPaymentList: LiveData<MutableList<Payment>?> = _filteredPaymentList

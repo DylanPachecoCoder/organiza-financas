@@ -1,84 +1,114 @@
 package com.example.organizafinancas.data
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
+import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import com.example.organizafinancas.domain.model.SelectableFilter
 import java.time.LocalDate
 
 class Repository private constructor() {
 
-    fun fetchFilters(): MutableList<PaymentFilter> {
-        filterList.sort()
-       return filterList
+    fun fetchFilters() = mutableListOf<SelectableFilter>().apply {
+        addAll(paymentFilterList)
+        addAll(categoryFilterList)
     }
 
-    fun fetchPayments(): MutableList<Payment> {
-        val filteredPaymentList = applyFilters(paymentList).toMutableList()
-        filteredPaymentList.sortDescending()
-        return filteredPaymentList
+    fun fetchPaymentFilters() = paymentFilterList
+
+    fun fetchCategoryFilters() = categoryFilterList
+
+    fun fetchPayments() = mutableListOf<Payment>().apply {
+        addAll(filterPayments(paymentList))
+        sortDescending()
     }
 
-    private fun applyFilters(paymentList: MutableList<Payment>?) =
+    private fun filterPayments(paymentList: MutableList<Payment>?) =
         paymentList?.filter { payment ->
-            filterList.any { filter ->
-                filter.type == payment.type
-                        && filter.isSelected
-                        && filter.initialDate <= payment.date
-                        && filter.finishDate >= payment.date
+            isInPaymentFilter(payment) && isInCategoryFilter(payment)
+        }.orEmpty().toMutableList()
+
+    private fun isInCategoryFilter(payment: Payment) =
+        categoryFilterList.any { filter ->
+            filter.name == payment.category.name
+                    && filter.isSelected
+        }
+
+    private fun isInPaymentFilter(payment: Payment) =
+        paymentFilterList.any { filter ->
+            filter.name == payment.type.paymentType
+                    && filter.isSelected
+                    && filter.initialDate <= payment.date
+                    && filter.finishDate >= payment.date
+        }
+
+    fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {  categoryFilterList.add(category) }
+        return categoryFilterList
+    }
+
+    fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {  categoryFilterList.remove(category) }
+        return categoryFilterList
+    }
+
+    fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {
+            categoryFilterList.forEach {
+                if (it.hashCode() == category.hashCode()){
+                    categoryFilterList.remove(it)
+                    categoryFilterList.add(category)
+                }
             }
-        }.orEmpty()
+        }
+        return categoryFilterList
+    }
 
     private val paymentList =
         mutableListOf(
             Payment(
                 name = "teste 1",
+                category = Filter("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 28)
             ),
             Payment(
                 name = "teste 2",
-                type = PaymentTypeEnum.DEBIT,
+                category = Filter("carro"),
+                type = PaymentTypeEnum.CASH,
                 date = LocalDate.of(2024, 5, 9)
             ),
             Payment(
                 name = "teste 3",
-                type = PaymentTypeEnum.PIX,
+                category = Filter("restaurante"),
+                type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 8)
             ),
+            Payment(type = PaymentTypeEnum.CASH,
+                category = Filter("mercado"),),
+            Payment(type = PaymentTypeEnum.CREDIT,
+                category = Filter("comida"),),
+            Payment(type = PaymentTypeEnum.CREDIT,
+                category = Filter("sair"),),
+            Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CREDIT),
-            Payment(type = PaymentTypeEnum.CREDIT),
-            Payment(type = PaymentTypeEnum.DEBIT),
-            Payment(type = PaymentTypeEnum.DEBIT),
-            Payment(type = PaymentTypeEnum.PIX),
         )
 
-    private val filterList =
+    private val paymentFilterList =
         mutableListOf(
-            PaymentFilter(
-                PaymentTypeEnum.CREDIT,
-                LocalDate.of(2024, 4, 24),
-                LocalDate.of(2024, 5, 23),
-                true
-            ),
-            PaymentFilter(
-                PaymentTypeEnum.DEBIT,
-                LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26),
-                true
-            ),
-            PaymentFilter(
-                PaymentTypeEnum.CASH,
-                LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26),
-                true
-            ),
-            PaymentFilter(
-                PaymentTypeEnum.PIX,
-                LocalDate.of(2024, 4, 27),
-                LocalDate.of(2024, 5, 26),
-                true
-            ),
+            PaymentTypeFilter.CreditFilter(),
+            PaymentTypeFilter.CashFilter(),
+        )
+
+    private val categoryFilterList =
+        mutableListOf(
+            SelectableFilter("restaurante"),
+            SelectableFilter("sem categoria"),
+            SelectableFilter("carro"),
+            SelectableFilter("mercado"),
+            SelectableFilter("comida"),
+            SelectableFilter("sair"),
         )
 
     companion object {

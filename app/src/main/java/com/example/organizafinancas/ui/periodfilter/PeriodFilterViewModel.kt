@@ -6,23 +6,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.toLocalDate
 import com.example.organizafinancas.data.Repository
-import com.example.organizafinancas.domain.model.PaymentFilter
+import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import kotlinx.coroutines.launch
 
 class PeriodFilterViewModel(
     private val repository: Repository = Repository.getInstance()
 ) : ViewModel() {
 
-    private val _filterList = MutableLiveData<MutableList<PaymentFilter>>()
-    val filterList: LiveData<MutableList<PaymentFilter>> = _filterList
+    private val _filterList = MutableLiveData<MutableList<PaymentTypeFilter>>()
+    val filterList: LiveData<MutableList<PaymentTypeFilter>> = _filterList
 
     fun fetchFilterList() {
         viewModelScope.launch {
-            _filterList.value = repository.fetchFilters()
+            _filterList.value = repository.fetchPaymentFilters()
         }
     }
 
-    fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentFilter) {
+    fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentTypeFilter) {
         paymentFilter.initialDate = initialDate.toLocalDate()
         paymentFilter.finishDate = finishDate.toLocalDate()
     }

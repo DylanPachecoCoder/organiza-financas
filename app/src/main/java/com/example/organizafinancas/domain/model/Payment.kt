@@ -6,6 +6,7 @@ import java.time.LocalDate
 data class Payment(
     val name: String = "Mercado pago",
     val type: PaymentTypeEnum,
+    val category: Filter = Filter("sem categoria"),
     val date: LocalDate = LocalDate.now(),
     val value: Double = 20.57,
 ): Comparable<Payment>{

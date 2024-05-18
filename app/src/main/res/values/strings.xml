@@ -7,14 +7,27 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="payments_title">Seus pagamentos</string>
-    <string name="payments_total">Total</string>
+
+    <!-- Payment -->
+    <string name="payment_title">Pagamentos</string>
+    <string name="payment_total">Total</string>
+    <string name="payment_accessibility_fat">adicionar pagamento</string>
+
+    <!-- Period -->
     <string name="period_filter_title">Selecionar períodos</string>
     <string name="period_filter_edit_period">Editar periodo</string>
     <string name="period_filter_from">De</string>
     <string name="period_filter_to">Até</string>
     <string name="period_filter_button">confirmar</string>
+    <string name="bottomsheet_title">Selecione os períodos que deseja</string>
+
+    <!-- Category -->
+    <string name="category_title">Categorias</string>
+    <string name="category_bottomsheet_title_new">Adicionar categoria</string>
+    <string name="category_bottomsheet_title_edit">Editar categoria</string>
+    <string name="category_edittext_hint">Categoria</string>
+    <string name="category_delete_button_description">apagar categoria</string>
+    <string name="category_save_button">salvar</string>
+
 </resources>
