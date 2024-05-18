@@ -23,7 +23,9 @@ class CategoryViewModel(
 
     fun saveCategory(category: SelectableFilter?) {
         viewModelScope.launch {
-            _categories.value = repository.saveCategory(category)
+            validateCategory(category) {
+                _categories.value = repository.saveCategory(category)
+            }
         }
     }
 
@@ -35,7 +37,15 @@ class CategoryViewModel(
 
     fun updateCategory(category: SelectableFilter?) {
         viewModelScope.launch {
-            _categories.value = repository.updateCategory(category)
+            validateCategory(category) {
+                _categories.value = repository.updateCategory(category)
+            }
+        }
+    }
+
+    private fun validateCategory(category: SelectableFilter?, block: () -> Unit) {
+        if (category != null && category.name.isNotEmpty()) {
+            block()
         }
     }
 }
