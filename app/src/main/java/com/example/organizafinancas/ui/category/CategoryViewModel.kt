@@ -22,7 +22,9 @@ class CategoryViewModel @Inject constructor(private val repository: Repository) 
 
     private fun fetchCategories() {
         viewModelScope.launch {
-            _categories.value = repository.fetchCategoryFilters()
+            repository.fetchCategoryFilters().collect{
+                _categories.value = it
+            }
         }
     }
 

@@ -28,13 +28,17 @@ class PaymentViewModel @Inject constructor(private val repository: Repository) :
 
     private fun fetchFilterList() {
         viewModelScope.launch {
-            _filterList.value = repository.fetchFilters()
+            repository.fetchFilters().collect{
+                _filterList.value = it
+            }
         }
     }
 
     fun fetchPaymentList() {
         viewModelScope.launch {
-            _filteredPaymentList.value = repository.fetchPayments()
+            repository.fetchPayments().collect{
+                _filteredPaymentList.value = it
+            }
         }
     }
 

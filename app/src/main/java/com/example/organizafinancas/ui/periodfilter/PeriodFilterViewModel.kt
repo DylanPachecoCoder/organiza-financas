@@ -23,7 +23,9 @@ class PeriodFilterViewModel @Inject constructor(private val repository: Reposito
 
     private fun fetchFilterList() {
         viewModelScope.launch {
-            _filterList.value = repository.fetchPaymentFilters()
+            repository.fetchPaymentFilters().collect{
+                _filterList.value = it
+            }
         }
     }
 

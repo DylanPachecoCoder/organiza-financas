@@ -5,6 +5,7 @@ import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.example.organizafinancas.domain.model.SelectableFilter
+import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,18 +13,28 @@ import javax.inject.Singleton
 @Singleton
 class Repository @Inject constructor() {
 
-    fun fetchFilters() = mutableListOf<SelectableFilter>().apply {
-        addAll(paymentFilterList)
-        addAll(categoryFilterList)
+    fun fetchFilters() = flow {
+        val selectableFilters = mutableListOf<SelectableFilter>().apply {
+            addAll(paymentFilterList)
+            addAll(categoryFilterList)
+        }
+        emit(selectableFilters)
     }
 
-    fun fetchPaymentFilters() = paymentFilterList
+    fun fetchPayments() = flow {
+        val payments = mutableListOf<Payment>().apply {
+            addAll(filterPayments(paymentList))
+            sortDescending()
+        }
+        emit(payments)
+    }
 
-    fun fetchCategoryFilters() = categoryFilterList
+    fun fetchPaymentFilters() = flow {
+        emit(paymentFilterList)
+    }
 
-    fun fetchPayments() = mutableListOf<Payment>().apply {
-        addAll(filterPayments(paymentList))
-        sortDescending()
+    fun fetchCategoryFilters() = flow {
+        emit(categoryFilterList)
     }
 
     private fun filterPayments(paymentList: MutableList<Payment>?) =
