@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -30,22 +31,30 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
 
     override fun onStart() {
         super.onStart()
-        setHasOptionsMenu(true)
+        setupOptionsMenu()
         setupObservers()
         viewModel.fetchFilterList()
         viewModel.fetchPaymentList()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main, menu)
+    private fun setupOptionsMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.main, menu)
+            }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+                setOptionsMenuAction(menuItem)
+        })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_period_filter -> showEditPeriodBottomSheet()
+    private fun setOptionsMenuAction(menuItem: MenuItem) =
+        when (menuItem.itemId) {
+            R.id.nav_period_filter -> {
+                showEditPeriodBottomSheet()
+                true
+            }
+            else -> false
         }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun showEditPeriodBottomSheet() {
         PeriodFilterBottomSheet(viewModel::fetchPaymentList)
