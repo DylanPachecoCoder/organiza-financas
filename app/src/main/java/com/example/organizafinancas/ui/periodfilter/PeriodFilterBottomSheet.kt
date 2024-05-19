@@ -9,7 +9,9 @@ import com.example.organizafinancas.databinding.BottomSheetPeriodFilterBinding
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.example.organizafinancas.ui.base.BaseBottomSheet
 import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PeriodFilterBottomSheet(
     private val onDismiss: () -> Unit = {}
 ) : BaseBottomSheet<BottomSheetPeriodFilterBinding>() {

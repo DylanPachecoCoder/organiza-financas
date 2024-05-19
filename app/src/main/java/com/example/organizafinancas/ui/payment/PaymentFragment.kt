@@ -16,7 +16,9 @@ import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
 
     private val viewModel by viewModels<PaymentViewModel>()

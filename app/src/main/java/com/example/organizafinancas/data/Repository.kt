@@ -6,8 +6,11 @@ import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
 import com.example.organizafinancas.domain.model.SelectableFilter
 import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class Repository private constructor() {
+@Singleton
+class Repository @Inject constructor() {
 
     fun fetchFilters() = mutableListOf<SelectableFilter>().apply {
         addAll(paymentFilterList)
@@ -43,19 +46,19 @@ class Repository private constructor() {
         }
 
     fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
-        category?.also {  categoryFilterList.add(category) }
+        category?.also { categoryFilterList.add(category) }
         return categoryFilterList
     }
 
     fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
-        category?.also {  categoryFilterList.remove(category) }
+        category?.also { categoryFilterList.remove(category) }
         return categoryFilterList
     }
 
     fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
         category?.also {
             categoryFilterList.forEach {
-                if (it.hashCode() == category.hashCode()){
+                if (it.hashCode() == category.hashCode()) {
                     categoryFilterList.remove(it)
                     categoryFilterList.add(category)
                 }
@@ -84,12 +87,18 @@ class Repository private constructor() {
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 8)
             ),
-            Payment(type = PaymentTypeEnum.CASH,
-                category = Filter("mercado"),),
-            Payment(type = PaymentTypeEnum.CREDIT,
-                category = Filter("comida"),),
-            Payment(type = PaymentTypeEnum.CREDIT,
-                category = Filter("sair"),),
+            Payment(
+                type = PaymentTypeEnum.CASH,
+                category = Filter("mercado"),
+            ),
+            Payment(
+                type = PaymentTypeEnum.CREDIT,
+                category = Filter("comida"),
+            ),
+            Payment(
+                type = PaymentTypeEnum.CREDIT,
+                category = Filter("sair"),
+            ),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CREDIT),
@@ -110,15 +119,4 @@ class Repository private constructor() {
             SelectableFilter("comida"),
             SelectableFilter("sair"),
         )
-
-    companion object {
-
-        @Volatile
-        private var instance: Repository? = null
-
-        fun getInstance() =
-            instance ?: synchronized(this) { // synchronized to avoid concurrency problem
-                instance ?: Repository().also { instance = it }
-            }
-    }
 }

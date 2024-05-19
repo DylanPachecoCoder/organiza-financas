@@ -8,11 +8,12 @@ import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.data.Repository
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PaymentViewModel(
-    private val repository: Repository = Repository.getInstance()
-) : ViewModel() {
+@HiltViewModel
+class PaymentViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _filterList = MutableLiveData<MutableList<SelectableFilter>>()
     val filterList: LiveData<MutableList<SelectableFilter>> = _filterList

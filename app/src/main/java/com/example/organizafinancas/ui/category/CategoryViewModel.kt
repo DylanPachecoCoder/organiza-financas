@@ -6,11 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.data.Repository
 import com.example.organizafinancas.domain.model.SelectableFilter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoryViewModel(
-    private val repository: Repository = Repository.getInstance()
-) : ViewModel() {
+@HiltViewModel
+class CategoryViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _categories = MutableLiveData<MutableList<SelectableFilter>>()
     val categories: LiveData<MutableList<SelectableFilter>> = _categories

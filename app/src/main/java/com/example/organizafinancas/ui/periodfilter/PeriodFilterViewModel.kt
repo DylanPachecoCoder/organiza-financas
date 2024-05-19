@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.toLocalDate
 import com.example.organizafinancas.data.Repository
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PeriodFilterViewModel(
-    private val repository: Repository = Repository.getInstance()
-) : ViewModel() {
+@HiltViewModel
+class PeriodFilterViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _filterList = MutableLiveData<MutableList<PaymentTypeFilter>>()
     val filterList: LiveData<MutableList<PaymentTypeFilter>> = _filterList

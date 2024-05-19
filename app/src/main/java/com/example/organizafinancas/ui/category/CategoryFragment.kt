@@ -9,7 +9,9 @@ import com.example.organizafinancas.databinding.FragmentCategoryBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     private val viewModel by viewModels<CategoryViewModel>()
