@@ -16,7 +16,11 @@ class CategoryViewModel @Inject constructor(private val repository: Repository) 
     private val _categories = MutableLiveData<MutableList<SelectableFilter>>()
     val categories: LiveData<MutableList<SelectableFilter>> = _categories
 
-    fun fetchCategories() {
+    init {
+        fetchCategories()
+    }
+
+    private fun fetchCategories() {
         viewModelScope.launch {
             _categories.value = repository.fetchCategoryFilters()
         }

@@ -28,7 +28,6 @@ class PeriodFilterBottomSheet(
         super.onStart()
         setupObservers()
         setupListeners()
-        viewModel.fetchFilterList()
     }
 
     private fun setupListeners() {

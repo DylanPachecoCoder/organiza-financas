@@ -17,7 +17,11 @@ class PeriodFilterViewModel @Inject constructor(private val repository: Reposito
     private val _filterList = MutableLiveData<MutableList<PaymentTypeFilter>>()
     val filterList: LiveData<MutableList<PaymentTypeFilter>> = _filterList
 
-    fun fetchFilterList() {
+    init {
+        fetchFilterList()
+    }
+
+    private fun fetchFilterList() {
         viewModelScope.launch {
             _filterList.value = repository.fetchPaymentFilters()
         }

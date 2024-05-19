@@ -33,8 +33,6 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
         super.onStart()
         setupOptionsMenu()
         setupObservers()
-        viewModel.fetchFilterList()
-        viewModel.fetchPaymentList()
     }
 
     private fun setupOptionsMenu() {

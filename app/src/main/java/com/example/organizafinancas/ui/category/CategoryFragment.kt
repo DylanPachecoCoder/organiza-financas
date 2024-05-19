@@ -21,7 +21,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCategories()
         setupObservers()
         setupListeners()
     }

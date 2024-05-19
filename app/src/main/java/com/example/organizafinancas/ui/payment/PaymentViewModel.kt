@@ -21,7 +21,12 @@ class PaymentViewModel @Inject constructor(private val repository: Repository) :
     private val _filteredPaymentList = MutableLiveData<MutableList<Payment>?>()
     val filteredPaymentList: LiveData<MutableList<Payment>?> = _filteredPaymentList
 
-    fun fetchFilterList() {
+    init {
+        fetchFilterList()
+        fetchPaymentList()
+    }
+
+    private fun fetchFilterList() {
         viewModelScope.launch {
             _filterList.value = repository.fetchFilters()
         }
