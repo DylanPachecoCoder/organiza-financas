@@ -1,4 +1,4 @@
-package com.example.organizafinancas.data
+package com.example.organizafinancas.data.repository
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Filter
@@ -11,9 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repository @Inject constructor() {
+class RepositoryImpl @Inject constructor() : Repository {
 
-    fun fetchFilters() = flow {
+    override fun fetchFilters() = flow {
         val selectableFilters = mutableListOf<SelectableFilter>().apply {
             addAll(paymentFilterList)
             addAll(categoryFilterList)
@@ -21,7 +21,7 @@ class Repository @Inject constructor() {
         emit(selectableFilters)
     }
 
-    fun fetchPayments() = flow {
+    override fun fetchPayments() = flow {
         val payments = mutableListOf<Payment>().apply {
             addAll(filterPayments(paymentList))
             sortDescending()
@@ -29,12 +29,34 @@ class Repository @Inject constructor() {
         emit(payments)
     }
 
-    fun fetchPaymentFilters() = flow {
+    override fun fetchPaymentFilters() = flow {
         emit(paymentFilterList)
     }
 
-    fun fetchCategoryFilters() = flow {
+    override fun fetchCategoryFilters() = flow {
         emit(categoryFilterList)
+    }
+
+    override fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also { categoryFilterList.add(category) }
+        return categoryFilterList
+    }
+
+    override fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also { categoryFilterList.remove(category) }
+        return categoryFilterList
+    }
+
+    override fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
+        category?.also {
+            categoryFilterList.forEach {
+                if (it.hashCode() == category.hashCode()) {
+                    categoryFilterList.remove(it)
+                    categoryFilterList.add(category)
+                }
+            }
+        }
+        return categoryFilterList
     }
 
     private fun filterPayments(paymentList: MutableList<Payment>?) =
@@ -55,28 +77,6 @@ class Repository @Inject constructor() {
                     && filter.initialDate <= payment.date
                     && filter.finishDate >= payment.date
         }
-
-    fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
-        category?.also { categoryFilterList.add(category) }
-        return categoryFilterList
-    }
-
-    fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
-        category?.also { categoryFilterList.remove(category) }
-        return categoryFilterList
-    }
-
-    fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter> {
-        category?.also {
-            categoryFilterList.forEach {
-                if (it.hashCode() == category.hashCode()) {
-                    categoryFilterList.remove(it)
-                    categoryFilterList.add(category)
-                }
-            }
-        }
-        return categoryFilterList
-    }
 
     private val paymentList =
         mutableListOf(
