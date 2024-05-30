@@ -11,15 +11,15 @@ interface Repository  {
 
     fun fetchFilters(): Flow<MutableList<SelectableFilter>>
 
-    fun fetchPayments(): Flow<MutableList<Payment>>
+    fun fetchPayments(): Flow<List<Payment>>
 
-    fun fetchPaymentFilters(): Flow<MutableList<PaymentTypeFilter>>
+    fun fetchPaymentFilters(): Flow<List<PaymentTypeFilter>>
 
-    fun fetchCategoryFilters(): Flow<MutableList<SelectableFilter>>
+    fun fetchCategoryFilters(): Flow<List<SelectableFilter>>
 
-    fun saveCategory(category: SelectableFilter?): MutableList<SelectableFilter>
+    fun saveCategory(category: SelectableFilter?): List<SelectableFilter>
 
-    fun deleteCategory(category: SelectableFilter?): MutableList<SelectableFilter>
+    fun deleteCategory(category: SelectableFilter?): List<SelectableFilter>
 
-    fun updateCategory(category: SelectableFilter?): MutableList<SelectableFilter>
+    fun updateCategory(category: SelectableFilter?): List<SelectableFilter>
 }
