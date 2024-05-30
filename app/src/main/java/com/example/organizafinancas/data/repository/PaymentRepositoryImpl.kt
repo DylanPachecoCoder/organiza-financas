@@ -18,6 +18,4 @@ class PaymentRepositoryImpl @Inject constructor(
         val payments = paymentDao.getPayments(paymentTypeDao.getAll(), categoryDao.getAll())
         emit(payments)
     }
-
-    override fun fetchPaymentFilters() = flow { emit(paymentTypeDao.getAll()) }
 }
