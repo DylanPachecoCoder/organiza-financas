@@ -1,7 +1,9 @@
 package com.example.organizafinancas.di
 
-import com.example.organizafinancas.data.repository.Repository
-import com.example.organizafinancas.data.repository.RepositoryImpl
+import com.example.organizafinancas.data.repository.CategoryRepository
+import com.example.organizafinancas.data.repository.CategoryRepositoryImpl
+import com.example.organizafinancas.data.repository.PaymentRepository
+import com.example.organizafinancas.data.repository.PaymentRepositoryImpl
 import com.example.organizafinancas.data.source.local.CategoryDao
 import com.example.organizafinancas.data.source.local.CategoryDaoImpl
 import com.example.organizafinancas.data.source.local.PaymentDao
@@ -20,7 +22,11 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindRepository(repository: RepositoryImpl): Repository
+    abstract fun bindPaymentRepository(repository: PaymentRepositoryImpl): PaymentRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
 }
 
 @Module

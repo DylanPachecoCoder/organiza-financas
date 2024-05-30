@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.ZERO
-import com.example.organizafinancas.data.repository.Repository
+import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class PaymentViewModel @Inject constructor(private val paymentRepository: PaymentRepository) : ViewModel() {
 
     private val _filterList = MutableLiveData<MutableList<SelectableFilter>>()
     val filterList: LiveData<MutableList<SelectableFilter>> = _filterList
 
-    private val _filteredPaymentList = MutableLiveData<MutableList<Payment>?>()
-    val filteredPaymentList: LiveData<MutableList<Payment>?> = _filteredPaymentList
+    private val _filteredPaymentList = MutableLiveData<List<Payment>?>()
+    val filteredPaymentList: LiveData<List<Payment>?> = _filteredPaymentList
 
     init {
         fetchFilterList()
@@ -28,7 +28,7 @@ class PaymentViewModel @Inject constructor(private val repository: Repository) :
 
     private fun fetchFilterList() {
         viewModelScope.launch {
-            repository.fetchFilters().collect{
+            paymentRepository.fetchFilters().collect{
                 _filterList.value = it
             }
         }
@@ -36,7 +36,7 @@ class PaymentViewModel @Inject constructor(private val repository: Repository) :
 
     fun fetchPaymentList() {
         viewModelScope.launch {
-            repository.fetchPayments().collect{
+            paymentRepository.fetchPayments().collect{
                 _filteredPaymentList.value = it
             }
         }

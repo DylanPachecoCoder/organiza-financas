@@ -9,11 +9,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RepositoryImpl @Inject constructor(
+class PaymentRepositoryImpl @Inject constructor(
     private val paymentDao: PaymentDao,
     private val categoryDao: CategoryDao,
     private val paymentTypeDao: PaymentTypeDao
-) : Repository {
+) : PaymentRepository {
 
     override fun fetchFilters() = flow {
         val selectableFilters = mutableListOf<SelectableFilter>().apply {
@@ -29,12 +29,4 @@ class RepositoryImpl @Inject constructor(
     }
 
     override fun fetchPaymentFilters() = flow { emit(paymentTypeDao.getAll()) }
-
-    override fun fetchCategoryFilters() = flow { emit(categoryDao.getAll()) }
-
-    override fun saveCategory(category: SelectableFilter?) = categoryDao.save(category)
-
-    override fun deleteCategory(category: SelectableFilter?) = categoryDao.delete(category)
-
-    override fun updateCategory(category: SelectableFilter?) = categoryDao.update(category)
 }
