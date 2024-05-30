@@ -8,12 +8,16 @@ import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PaymentViewModel @Inject constructor(private val paymentRepository: PaymentRepository) : ViewModel() {
+class PaymentViewModel @Inject constructor(
+    private val paymentRepository: PaymentRepository,
+    private val getFiltersUseCase: GetFiltersUseCase,
+) : ViewModel() {
 
     private val _filterList = MutableLiveData<MutableList<SelectableFilter>>()
     val filterList: LiveData<MutableList<SelectableFilter>> = _filterList
@@ -28,7 +32,7 @@ class PaymentViewModel @Inject constructor(private val paymentRepository: Paymen
 
     private fun fetchFilterList() {
         viewModelScope.launch {
-            paymentRepository.fetchFilters().collect{
+            getFiltersUseCase().collect{
                 _filterList.value = it
             }
         }

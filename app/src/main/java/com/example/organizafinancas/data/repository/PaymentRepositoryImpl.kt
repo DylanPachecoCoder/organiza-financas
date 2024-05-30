@@ -3,7 +3,6 @@ package com.example.organizafinancas.data.repository
 import com.example.organizafinancas.data.source.local.CategoryDao
 import com.example.organizafinancas.data.source.local.PaymentDao
 import com.example.organizafinancas.data.source.local.PaymentTypeDao
-import com.example.organizafinancas.domain.model.SelectableFilter
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,14 +13,6 @@ class PaymentRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao,
     private val paymentTypeDao: PaymentTypeDao
 ) : PaymentRepository {
-
-    override fun fetchFilters() = flow {
-        val selectableFilters = mutableListOf<SelectableFilter>().apply {
-            addAll(paymentTypeDao.getAll())
-            addAll(categoryDao.getAll())
-        }
-        emit(selectableFilters)
-    }
 
     override fun fetchPayments() = flow {
         val payments = paymentDao.getPayments(paymentTypeDao.getAll(), categoryDao.getAll())

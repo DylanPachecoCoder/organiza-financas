@@ -9,8 +9,6 @@ import javax.inject.Singleton
 @Singleton
 interface PaymentRepository  {
 
-    fun fetchFilters(): Flow<MutableList<SelectableFilter>>
-
     fun fetchPayments(): Flow<List<Payment>>
 
     fun fetchPaymentFilters(): Flow<List<PaymentTypeFilter>>

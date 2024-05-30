@@ -4,6 +4,8 @@ import com.example.organizafinancas.data.repository.CategoryRepository
 import com.example.organizafinancas.data.repository.CategoryRepositoryImpl
 import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.data.repository.PaymentRepositoryImpl
+import com.example.organizafinancas.data.repository.PaymentTypeRepository
+import com.example.organizafinancas.data.repository.PaymentTypeRepositoryImpl
 import com.example.organizafinancas.data.source.local.CategoryDao
 import com.example.organizafinancas.data.source.local.CategoryDaoImpl
 import com.example.organizafinancas.data.source.local.PaymentDao
@@ -27,6 +29,10 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindPaymentTypeRepository(repository: PaymentTypeRepositoryImpl): PaymentTypeRepository
 }
 
 @Module
