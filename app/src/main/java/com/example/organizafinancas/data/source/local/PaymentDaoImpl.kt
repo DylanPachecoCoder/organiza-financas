@@ -4,38 +4,16 @@ import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentTypeFilter
-import com.example.organizafinancas.domain.model.SelectableFilter
 import java.time.LocalDate
 import javax.inject.Inject
 
 class PaymentDaoImpl @Inject constructor() : PaymentDao {
-    override fun getPayments(
-        paymentFilterList: List<PaymentTypeFilter>,
-        categoryFilterList: List<SelectableFilter>
-    ) =
-        mutableListOf<Payment>().apply {
-            addAll(filterPayments(paymentList, paymentFilterList, categoryFilterList))
-            sortDescending()
-        }
 
-    private fun filterPayments(
-        paymentList: MutableList<Payment>?,
-        paymentFilterList: List<PaymentTypeFilter>,
-        categoryFilterList: List<SelectableFilter>
-    ) =
-        paymentList?.filter { payment ->
-            isInPaymentFilter(payment, paymentFilterList) &&
-                    isInCategoryFilter(payment, categoryFilterList)
-        }.orEmpty().toMutableList()
+    override fun getAll() = paymentList
 
-    private fun isInCategoryFilter(
-        payment: Payment,
-        categoryFilterList: List<SelectableFilter>
-    ) =
-        categoryFilterList.any { filter ->
-            filter.name == payment.category.name
-                    && filter.isSelected
-        }
+    override fun getByPaymentType(paymentTypeList: List<PaymentTypeFilter>) =
+        paymentList.filter { isInPaymentFilter(it, paymentTypeList) }
+
 
     private fun isInPaymentFilter(
         payment: Payment,
@@ -43,7 +21,6 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
     ) =
         paymentFilterList.any { filter ->
             filter.name == payment.type.paymentType
-                    && filter.isSelected
                     && filter.initialDate <= payment.date
                     && filter.finishDate >= payment.date
         }
