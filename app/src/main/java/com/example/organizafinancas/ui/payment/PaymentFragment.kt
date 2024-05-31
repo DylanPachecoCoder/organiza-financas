@@ -43,12 +43,12 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
     private fun setupCollectors() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect(::setupUiVisibility)
+                viewModel.uiState.collect(::setupUiState)
             }
         }
     }
 
-    private fun setupUiVisibility(uiState: UiState) {
+    private fun setupUiState(uiState: UiState) {
         setupFilterList(uiState.filters)
         setupPaymentList(uiState.payments)
         setupTotalValue(uiState.total)

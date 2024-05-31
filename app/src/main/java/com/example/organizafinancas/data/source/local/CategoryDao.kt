@@ -6,10 +6,9 @@ interface CategoryDao {
 
     fun getAll(): List<SelectableFilter>
 
-    fun save(category: SelectableFilter?): List<SelectableFilter>
+    fun save(category: SelectableFilter)
 
-    fun delete(category: SelectableFilter?): List<SelectableFilter>
+    fun delete(category: SelectableFilter)
 
-    fun update(category: SelectableFilter?): List<SelectableFilter>
-
+    fun update(category: SelectableFilter)
 }

@@ -7,7 +7,7 @@ import com.example.organizafinancas.databinding.ItemCategoryDetailBinding
 import com.example.organizafinancas.domain.model.SelectableFilter
 
 class CategoryAdapter(
-    private val categoryList: List<SelectableFilter> = mutableListOf(),
+    private var categoryList: List<SelectableFilter> = mutableListOf(),
     private val onItemClicked: (category: SelectableFilter) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
@@ -21,6 +21,11 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categoryList[position])
+    }
+
+    fun refreshList(categoryList: List<SelectableFilter>) {
+        this.categoryList = categoryList
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemCategoryDetailBinding) :

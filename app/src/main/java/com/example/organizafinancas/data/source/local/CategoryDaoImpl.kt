@@ -3,32 +3,33 @@ package com.example.organizafinancas.data.source.local
 import com.example.organizafinancas.domain.model.SelectableFilter
 import javax.inject.Inject
 
-class CategoryDaoImpl @Inject constructor(): CategoryDao {
+class CategoryDaoImpl @Inject constructor() : CategoryDao {
 
-    override fun getAll(): List<SelectableFilter> = categoryFilterList
+    override fun getAll(): List<SelectableFilter> = getListOfCategories()
 
-    override fun save(category: SelectableFilter?): List<SelectableFilter> {
-        category?.also { categoryFilterList.add(category) }
-        return categoryFilterList
+    override fun save(category: SelectableFilter) {
+        categoryFilterList.add(category)
     }
 
-    override fun delete(category: SelectableFilter?): List<SelectableFilter> {
-        category?.also { categoryFilterList.remove(category) }
-        return categoryFilterList
+    override fun delete(category: SelectableFilter) {
+        categoryFilterList.remove(category)
     }
 
-    override fun update(category: SelectableFilter?): List<SelectableFilter> {
-        category?.also {
-            categoryFilterList.forEach {
-                if (it.hashCode() == category.hashCode()) {
-                    categoryFilterList.remove(it)
-                    categoryFilterList.add(category)
-                }
+    override fun update(category: SelectableFilter) {
+        categoryFilterList.forEach {
+            if (it.hashCode() == category.hashCode()) {
+                categoryFilterList.remove(it)
+                categoryFilterList.add(category)
+                return
             }
         }
-        return categoryFilterList
     }
 
+    private fun getListOfCategories(): List<SelectableFilter> {
+        val newList = mutableListOf<SelectableFilter>()
+        newList.addAll(categoryFilterList)
+        return newList
+    }
 
     private val categoryFilterList =
         mutableListOf(
@@ -39,6 +40,4 @@ class CategoryDaoImpl @Inject constructor(): CategoryDao {
             SelectableFilter("comida"),
             SelectableFilter("sair"),
         )
-
-
 }

@@ -7,13 +7,21 @@ import javax.inject.Inject
 
 class CategoryRepositoryImpl @Inject constructor(
     private val dao: CategoryDao
-): CategoryRepository {
+) : CategoryRepository {
 
-    override fun fetchCategoryFilters() = flow { emit(dao.getAll()) }
+    override fun fetchCategoryFilters() = flow {
+        emit(dao.getAll())
+    }
 
-    override fun saveCategory(category: SelectableFilter?) = dao.save(category)
+    override fun saveCategory(category: SelectableFilter) {
+        dao.save(category)
+    }
 
-    override fun deleteCategory(category: SelectableFilter?) = dao.delete(category)
+    override fun deleteCategory(category: SelectableFilter) {
+        dao.delete(category)
+    }
 
-    override fun updateCategory(category: SelectableFilter?) = dao.update(category)
+    override fun updateCategory(category: SelectableFilter) {
+        dao.update(category)
+    }
 }

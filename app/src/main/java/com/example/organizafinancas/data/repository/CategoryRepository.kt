@@ -7,9 +7,9 @@ interface CategoryRepository {
 
     fun fetchCategoryFilters(): Flow<List<SelectableFilter>>
 
-    fun saveCategory(category: SelectableFilter?): List<SelectableFilter>
+    fun saveCategory(category: SelectableFilter)
 
-    fun deleteCategory(category: SelectableFilter?): List<SelectableFilter>
+    fun deleteCategory(category: SelectableFilter)
 
-    fun updateCategory(category: SelectableFilter?): List<SelectableFilter>
+    fun updateCategory(category: SelectableFilter)
 }

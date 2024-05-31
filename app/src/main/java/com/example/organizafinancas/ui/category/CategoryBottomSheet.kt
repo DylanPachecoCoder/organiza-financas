@@ -1,5 +1,6 @@
 package com.example.organizafinancas.ui.category
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,9 @@ import com.example.organizafinancas.ui.base.BaseBottomSheet
 
 class CategoryBottomSheet(
     private val category: SelectableFilter? = null,
-    private val onConfirmButton: (SelectableFilter?) -> Unit,
-    private val onDeleteButton: (SelectableFilter?) -> Unit
+    private val onConfirmButton: (SelectableFilter) -> Unit,
+    private val onDeleteButton: (SelectableFilter) -> Unit,
+    private val onDismiss: () -> Unit,
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
     override val standardBottomSheet by lazy { binding.framelayoutCategory }
@@ -40,8 +42,10 @@ class CategoryBottomSheet(
     private fun setupListeners() {
         with(binding) {
             buttonCategoryDelete.setOnClickListener {
-                onDeleteButton(category)
-                dismiss()
+                category?.also {
+                    onDeleteButton(it)
+                    dismiss()
+                }
             }
             buttonCategorySave.setOnClickListener {
                 val categoryName = edittextCategoryName.editText?.text.toString()
@@ -72,5 +76,10 @@ class CategoryBottomSheet(
             bottomsheetCategoryTitle.text =
                 context?.getString(R.string.category_bottomsheet_title_edit)
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        onDismiss()
     }
 }
