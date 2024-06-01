@@ -4,12 +4,11 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'androidx.room'
-    id 'com.google.devtools.ksp'
 }
 
 android {
     namespace 'com.example.organizafinancas'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.organizafinancas"
@@ -47,7 +46,7 @@ dependencies {
     var room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor "androidx.room:room-compiler:$room_version"
-    ksp "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Dagger Hilt
     var dagger_hilt = "2.44"
