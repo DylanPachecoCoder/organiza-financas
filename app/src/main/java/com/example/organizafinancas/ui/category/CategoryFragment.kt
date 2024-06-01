@@ -22,12 +22,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     private val viewModel by viewModels<CategoryViewModel>()
     private val adapter by lazy {
         CategoryAdapter {
-            showCategoryBottomSheet(
-                it,
-                viewModel::updateCategory,
-                viewModel::deleteCategory,
-                viewModel::fetchCategories
-            )
+            showCategoryBottomSheet(it, ::updateCategory, ::deleteCategory)
         }
     }
 
@@ -39,34 +34,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         setupCollectors()
         setupListeners()
         setupRecyclerView()
-    }
-
-    override fun onStart() {
-        super.onStart()
         viewModel.fetchCategories()
-    }
-
-    private fun setupRecyclerView() {
-        binding.recyclerviewCategory.adapter = adapter
-    }
-
-    private fun setupListeners() {
-        binding.buttonCategoryNew.setOnClickListener {
-            showCategoryBottomSheet(
-                onConfirmButton = viewModel::saveCategory,
-                onDismiss = viewModel::fetchCategories
-            )
-        }
-    }
-
-    private fun showCategoryBottomSheet(
-        category: Category? = null,
-        onConfirmButton: (Category) -> Unit,
-        onDeleteButton: (Category) -> Unit = {},
-        onDismiss: () -> Unit = {}
-    ) {
-        CategoryBottomSheet(category, onConfirmButton, onDeleteButton, onDismiss)
-            .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
     }
 
     private fun setupCollectors() {
@@ -77,11 +45,43 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         }
     }
 
-    private fun setupUiState(uiState: UiState) {
-        refreshList(uiState.categories)
+    private fun setupListeners() {
+        binding.buttonCategoryNew.setOnClickListener {
+            showCategoryBottomSheet(
+                onConfirmButton = ::saveCategory,
+            )
+        }
     }
 
-    private fun refreshList(categoryList: List<Category>) {
-        adapter.refreshList(categoryList)
+    private fun setupRecyclerView() {
+        binding.recyclerviewCategory.adapter = adapter
+    }
+
+    private fun showCategoryBottomSheet(
+        category: Category? = null,
+        onConfirmButton: (Category) -> Unit,
+        onDeleteButton: (Category) -> Unit = {},
+    ) {
+        CategoryBottomSheet(category, onConfirmButton, onDeleteButton)
+            .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
+    }
+
+    private fun setupUiState(uiState: UiState) {
+        adapter.refreshList(uiState.categories)
+    }
+
+    private fun updateCategory(category: Category) {
+        viewModel.updateCategory(category)
+        viewModel.fetchCategories()
+    }
+
+    private fun deleteCategory(category: Category) {
+        viewModel.deleteCategory(category)
+        viewModel.fetchCategories()
+    }
+
+    private fun saveCategory(category: Category) {
+        viewModel.saveCategory(category)
+        viewModel.fetchCategories()
     }
 }

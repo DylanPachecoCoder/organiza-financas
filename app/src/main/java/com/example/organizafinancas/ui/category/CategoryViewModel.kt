@@ -12,8 +12,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val repository: CategoryRepository) :
-    ViewModel() {
+class CategoryViewModel @Inject constructor(
+    private val repository: CategoryRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()

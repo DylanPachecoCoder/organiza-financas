@@ -15,7 +15,6 @@ class CategoryBottomSheet(
     private val category: Category? = null,
     private val onConfirmButton: (Category) -> Unit,
     private val onDeleteButton: (Category) -> Unit,
-    private val onDismiss: () -> Unit,
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
     override val standardBottomSheet by lazy { binding.framelayoutCategory }
@@ -70,10 +69,5 @@ class CategoryBottomSheet(
             buttonCategoryDelete.isVisible = true
             bottomsheetCategoryTitle.text = context?.getString(R.string.category_bottomsheet_title_edit)
         }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        onDismiss()
     }
 }
