@@ -1,6 +1,5 @@
 package com.example.organizafinancas.ui.category
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
