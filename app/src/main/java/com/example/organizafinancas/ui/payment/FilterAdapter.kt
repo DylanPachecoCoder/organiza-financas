@@ -7,7 +7,7 @@ import com.example.organizafinancas.databinding.ItemFilterOptionBinding
 import com.example.organizafinancas.domain.model.Filter
 
 class FilterAdapter(
-    private val filterOptions: List<Filter>,
+    private var filterOptions: List<Filter> = emptyList(),
     private val onItemClicked: () -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
@@ -22,6 +22,10 @@ class FilterAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val option = filterOptions[position]
         holder.bind(option, onItemClicked)
+    }
+
+    fun refreshList(filterList: List<Filter>) {
+        filterOptions = filterList
     }
 
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :

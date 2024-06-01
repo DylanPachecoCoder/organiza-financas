@@ -12,10 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.organizafinancas.R
-import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
@@ -28,16 +25,21 @@ import kotlinx.coroutines.launch
 class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
 
     private val viewModel by viewModels<PaymentViewModel>()
+    private val filterAdapter by lazy { FilterAdapter(onItemClicked = viewModel::fetchPaymentList) }
 
     override fun inflateViewBind(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ) = FragmentPaymentBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupOptionsMenu()
+        setupFilterAdapter()
         setupCollectors()
+    }
+
+    private fun setupFilterAdapter() {
+        binding.recyclerviewFilterOption.adapter = filterAdapter
     }
 
     private fun setupCollectors() {
@@ -55,8 +57,10 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
     }
 
     private fun showEditPeriodBottomSheet() {
-        PeriodFilterBottomSheet(viewModel::fetchPaymentList)
-            .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
+        PeriodFilterBottomSheet(viewModel::fetchPaymentList).show(
+            parentFragmentManager,
+            PeriodFilterBottomSheet.BOTTOM_SHEET_TAG
+        )
     }
 
     private fun setupTotalValue(total: String) {
@@ -68,12 +72,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
     }
 
     private fun setupFilterList(filterList: List<Filter>) {
-        binding.recyclerviewFilterOption.apply {
-            val listQuantityLines = (filterList.size + Int.ONE) / MAX_FILTERS_PER_LINE
-            layoutManager =
-                StaggeredGridLayoutManager(listQuantityLines, LinearLayoutManager.HORIZONTAL)
-            adapter = FilterAdapter(filterList, viewModel::fetchPaymentList)
-        }
+        filterAdapter.refreshList(filterList)
     }
 
     private fun setupOptionsMenu() {
@@ -86,16 +85,11 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
         })
     }
 
-    private fun setOptionsMenuAction(menuItem: MenuItem) =
-        when (menuItem.itemId) {
-            R.id.nav_period_filter -> {
-                showEditPeriodBottomSheet()
-                true
-            }
-            else -> false
+    private fun setOptionsMenuAction(menuItem: MenuItem) = when (menuItem.itemId) {
+        R.id.nav_period_filter -> {
+            showEditPeriodBottomSheet()
+            true
         }
-
-    companion object {
-        private const val MAX_FILTERS_PER_LINE = 5
+        else -> false
     }
 }
