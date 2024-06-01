@@ -44,16 +44,16 @@ class PaymentViewModel @Inject constructor(
                 _uiState.update { currentValue ->
                     currentValue.copy(
                         payments = it,
-                        total = sumValues()
+                        total = sumValues(it)
                     )
                 }
             }
         }
     }
 
-    private fun sumValues(): String {
+    private fun sumValues(payments: MutableList<Payment>): String {
         var sum = Double.ZERO
-        _uiState.value.payments.forEach {
+        payments.forEach {
             sum += it.value
         }
         return sum.toCurrency()
