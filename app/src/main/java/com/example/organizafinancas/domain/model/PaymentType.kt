@@ -1,6 +1,5 @@
 package com.example.organizafinancas.domain.model
 
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import java.time.LocalDate
 
 data class PaymentType(

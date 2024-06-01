@@ -18,7 +18,6 @@ import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet

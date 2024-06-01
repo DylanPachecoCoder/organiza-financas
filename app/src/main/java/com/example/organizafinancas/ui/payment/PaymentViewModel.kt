@@ -1,14 +1,11 @@
 package com.example.organizafinancas.ui.payment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import com.example.organizafinancas.domain.usecase.GetPaymentsByFiltersUseCase
