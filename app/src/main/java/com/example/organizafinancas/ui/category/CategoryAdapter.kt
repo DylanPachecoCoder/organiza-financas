@@ -1,5 +1,6 @@
 package com.example.organizafinancas.ui.category
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class CategoryAdapter(
         holder.bind(categoryList[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun refreshList(categoryList: List<SelectableFilter>) {
         this.categoryList = categoryList
         notifyDataSetChanged()
