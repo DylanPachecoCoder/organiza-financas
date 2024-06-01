@@ -1,9 +1,9 @@
 package com.example.organizafinancas.data.source.local
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.Filter
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import com.example.organizafinancas.domain.model.PaymentType
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -11,13 +11,13 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
 
     override fun getAll() = paymentList
 
-    override fun getByPaymentType(paymentTypeList: List<PaymentTypeFilter>) =
+    override fun getByPaymentType(paymentTypeList: List<PaymentType>) =
         paymentList.filter { isInPaymentFilter(it, paymentTypeList) }
 
 
     private fun isInPaymentFilter(
         payment: Payment,
-        paymentFilterList: List<PaymentTypeFilter>
+        paymentFilterList: List<PaymentType>
     ) =
         paymentFilterList.any { filter ->
             filter.name == payment.type.paymentType
@@ -29,33 +29,33 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
         mutableListOf(
             Payment(
                 name = "teste 1",
-                category = Filter("restaurante"),
+                category = Category("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 28)
             ),
             Payment(
                 name = "teste 2",
-                category = Filter("carro"),
+                category = Category("carro"),
                 type = PaymentTypeEnum.CASH,
                 date = LocalDate.of(2024, 5, 9)
             ),
             Payment(
                 name = "teste 3",
-                category = Filter("restaurante"),
+                category = Category("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 8)
             ),
             Payment(
                 type = PaymentTypeEnum.CASH,
-                category = Filter("mercado"),
+                category = Category("mercado"),
             ),
             Payment(
                 type = PaymentTypeEnum.CREDIT,
-                category = Filter("comida"),
+                category = Category("comida"),
             ),
             Payment(
                 type = PaymentTypeEnum.CREDIT,
-                category = Filter("sair"),
+                category = Category("sair"),
             ),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CASH),

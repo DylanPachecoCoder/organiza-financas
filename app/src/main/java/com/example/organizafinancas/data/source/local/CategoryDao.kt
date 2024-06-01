@@ -1,14 +1,14 @@
 package com.example.organizafinancas.data.source.local
 
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 
 interface CategoryDao {
 
-    fun getAll(): List<SelectableFilter>
+    fun getAll(): List<Category>
 
-    fun save(category: SelectableFilter)
+    fun save(category: Category)
 
-    fun delete(category: SelectableFilter)
+    fun delete(category: Category)
 
-    fun update(category: SelectableFilter)
+    fun update(category: Category)
 }

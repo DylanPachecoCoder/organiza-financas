@@ -3,7 +3,7 @@ package com.example.organizafinancas.ui.category
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.data.repository.CategoryRepository
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,19 +28,19 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
         }
     }
 
-    fun saveCategory(category: SelectableFilter) {
+    fun saveCategory(category: Category) {
         viewModelScope.launch {
             repository.saveCategory(category)
         }
     }
 
-    fun deleteCategory(category: SelectableFilter) {
+    fun deleteCategory(category: Category) {
         viewModelScope.launch {
             repository.deleteCategory(category)
         }
     }
 
-    fun updateCategory(category: SelectableFilter) {
+    fun updateCategory(category: Category) {
         viewModelScope.launch {
             repository.updateCategory(category)
         }
@@ -48,5 +48,5 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
 }
 
 data class UiState(
-    val categories: List<SelectableFilter> = emptyList()
+    val categories: List<Category> = emptyList()
 )

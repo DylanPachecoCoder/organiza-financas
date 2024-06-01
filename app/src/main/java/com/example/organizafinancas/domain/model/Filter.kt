@@ -1,3 +1,6 @@
 package com.example.organizafinancas.domain.model
 
-open class Filter(var name: String)
+interface Filter {
+    val name: String
+    var isSelected: Boolean
+}

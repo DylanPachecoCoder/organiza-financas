@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemFilterOptionBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Filter
 
 class FilterAdapter(
-    private val filterOptions: List<SelectableFilter>,
+    private val filterOptions: List<Filter>,
     private val onItemClicked: () -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
@@ -27,7 +27,7 @@ class FilterAdapter(
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: SelectableFilter, onItemClicked: () -> Unit) {
+        fun bind(option: Filter, onItemClicked: () -> Unit) {
             with(binding.checkboxFilterOption) {
                 text = option.name
                 isChecked = option.isSelected

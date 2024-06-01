@@ -9,7 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.organizafinancas.databinding.FragmentCategoryBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,9 +60,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     }
 
     private fun showCategoryBottomSheet(
-        category: SelectableFilter? = null,
-        onConfirmButton: (SelectableFilter) -> Unit,
-        onDeleteButton: (SelectableFilter) -> Unit = {},
+        category: Category? = null,
+        onConfirmButton: (Category) -> Unit,
+        onDeleteButton: (Category) -> Unit = {},
         onDismiss: () -> Unit = {}
     ) {
         CategoryBottomSheet(category, onConfirmButton, onDeleteButton, onDismiss)
@@ -81,7 +81,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         refreshList(uiState.categories)
     }
 
-    private fun refreshList(categoryList: List<SelectableFilter>) {
+    private fun refreshList(categoryList: List<Category>) {
         adapter.refreshList(categoryList)
     }
 }

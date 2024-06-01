@@ -1,15 +1,15 @@
 package com.example.organizafinancas.data.repository
 
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
 
-    fun fetchCategoryFilters(): Flow<List<SelectableFilter>>
+    fun fetchCategoryFilters(): Flow<List<Category>>
 
-    fun saveCategory(category: SelectableFilter)
+    fun saveCategory(category: Category)
 
-    fun deleteCategory(category: SelectableFilter)
+    fun deleteCategory(category: Category)
 
-    fun updateCategory(category: SelectableFilter)
+    fun updateCategory(category: Category)
 }

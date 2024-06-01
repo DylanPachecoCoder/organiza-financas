@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.organizafinancas.R
 import com.example.organizafinancas.databinding.BottomSheetCategoryBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.ui.base.BaseBottomSheet
 
 class CategoryBottomSheet(
-    private val category: SelectableFilter? = null,
-    private val onConfirmButton: (SelectableFilter) -> Unit,
-    private val onDeleteButton: (SelectableFilter) -> Unit,
+    private val category: Category? = null,
+    private val onConfirmButton: (Category) -> Unit,
+    private val onDeleteButton: (Category) -> Unit,
     private val onDismiss: () -> Unit,
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
@@ -56,13 +56,8 @@ class CategoryBottomSheet(
         }
     }
 
-    private fun getCategory(categoryName: String, category: SelectableFilter?) =
-        if (category == null) {
-            SelectableFilter(categoryName)
-        } else {
-            category.name = categoryName
-            category
-        }
+    private fun getCategory(categoryName: String, category: Category?) =
+        category?.copy(name = categoryName) ?: Category(categoryName)
 
     private fun setupNewCategory() {
         binding.bottomsheetCategoryTitle.text =
@@ -73,8 +68,7 @@ class CategoryBottomSheet(
         with(binding) {
             edittextCategoryName.editText?.setText(category?.name)
             buttonCategoryDelete.isVisible = true
-            bottomsheetCategoryTitle.text =
-                context?.getString(R.string.category_bottomsheet_title_edit)
+            bottomsheetCategoryTitle.text = context?.getString(R.string.category_bottomsheet_title_edit)
         }
     }
 

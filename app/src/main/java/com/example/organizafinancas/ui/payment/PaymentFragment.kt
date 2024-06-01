@@ -18,7 +18,8 @@ import com.example.organizafinancas.R
 import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
+import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +68,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
         binding.recyclerviewPayment.adapter = PaymentAdapter(paymentList.orEmpty())
     }
 
-    private fun setupFilterList(filterList: List<SelectableFilter>) {
+    private fun setupFilterList(filterList: List<Filter>) {
         binding.recyclerviewFilterOption.apply {
             val listQuantityLines = (filterList.size + Int.ONE) / MAX_FILTERS_PER_LINE
             layoutManager =

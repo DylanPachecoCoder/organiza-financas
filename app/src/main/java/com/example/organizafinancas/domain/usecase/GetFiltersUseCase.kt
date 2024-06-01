@@ -2,7 +2,7 @@ package com.example.organizafinancas.domain.usecase
 
 import com.example.organizafinancas.data.repository.CategoryRepository
 import com.example.organizafinancas.data.repository.PaymentTypeRepository
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Filter
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -12,10 +12,10 @@ class GetFiltersUseCase @Inject constructor(
 ) {
 
     operator fun invoke() = flow {
-        val selectableFilters = mutableListOf<SelectableFilter>().apply {
+        val filters = mutableListOf<Filter>().apply {
             paymentTypeRepository.fetchPaymentTypeFilters().collect { addAll(it) }
             categoryRepository.fetchCategoryFilters().collect { addAll(it) }
         }
-        emit(selectableFilters)
+        emit(filters)
     }
 }

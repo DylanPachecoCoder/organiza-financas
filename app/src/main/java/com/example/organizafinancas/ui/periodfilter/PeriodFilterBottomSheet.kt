@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.organizafinancas.commons.extensions.getDataRange
 import com.example.organizafinancas.databinding.BottomSheetPeriodFilterBinding
-import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import com.example.organizafinancas.domain.model.PaymentType
 import com.example.organizafinancas.ui.base.BaseBottomSheet
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +47,7 @@ class PeriodFilterBottomSheet(
         }
     }
 
-    private fun setupDataPicker(filter: PaymentTypeFilter, position: Int) {
+    private fun setupDataPicker(filter: PaymentType, position: Int) {
         MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(filter.name)
             .setPositiveButtonText(DATA_PICKER_POSITIVE_BUTTON)

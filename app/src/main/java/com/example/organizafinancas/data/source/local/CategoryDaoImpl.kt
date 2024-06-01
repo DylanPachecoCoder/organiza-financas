@@ -1,21 +1,21 @@
 package com.example.organizafinancas.data.source.local
 
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import javax.inject.Inject
 
 class CategoryDaoImpl @Inject constructor() : CategoryDao {
 
-    override fun getAll(): List<SelectableFilter> = getListOfCategories()
+    override fun getAll(): List<Category> = getListOfCategories()
 
-    override fun save(category: SelectableFilter) {
+    override fun save(category: Category) {
         categoryFilterList.add(category)
     }
 
-    override fun delete(category: SelectableFilter) {
+    override fun delete(category: Category) {
         categoryFilterList.remove(category)
     }
 
-    override fun update(category: SelectableFilter) {
+    override fun update(category: Category) {
         categoryFilterList.forEach {
             if (it.hashCode() == category.hashCode()) {
                 categoryFilterList.remove(it)
@@ -25,19 +25,19 @@ class CategoryDaoImpl @Inject constructor() : CategoryDao {
         }
     }
 
-    private fun getListOfCategories(): List<SelectableFilter> {
-        val newList = mutableListOf<SelectableFilter>()
+    private fun getListOfCategories(): List<Category> {
+        val newList = mutableListOf<Category>()
         newList.addAll(categoryFilterList)
         return newList
     }
 
     private val categoryFilterList =
         mutableListOf(
-            SelectableFilter("restaurante"),
-            SelectableFilter("sem categoria"),
-            SelectableFilter("carro"),
-            SelectableFilter("mercado"),
-            SelectableFilter("comida"),
-            SelectableFilter("sair"),
+            Category("restaurante"),
+            Category("sem categoria"),
+            Category("carro"),
+            Category("mercado"),
+            Category("comida"),
+            Category("sair"),
         )
 }

@@ -1,7 +1,7 @@
 package com.example.organizafinancas.data.repository
 
 import com.example.organizafinancas.data.source.local.CategoryDao
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -13,15 +13,15 @@ class CategoryRepositoryImpl @Inject constructor(
         emit(dao.getAll())
     }
 
-    override fun saveCategory(category: SelectableFilter) {
+    override fun saveCategory(category: Category) {
         dao.save(category)
     }
 
-    override fun deleteCategory(category: SelectableFilter) {
+    override fun deleteCategory(category: Category) {
         dao.delete(category)
     }
 
-    override fun updateCategory(category: SelectableFilter) {
+    override fun updateCategory(category: Category) {
         dao.update(category)
     }
 }
