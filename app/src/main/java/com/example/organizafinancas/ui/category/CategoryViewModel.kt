@@ -40,12 +40,6 @@ class CategoryViewModel @Inject constructor(
             repository.deleteCategory(category)
         }
     }
-
-    fun updateCategory(category: Category) {
-        viewModelScope.launch {
-            repository.updateCategory(category)
-        }
-    }
 }
 
 data class UiState(

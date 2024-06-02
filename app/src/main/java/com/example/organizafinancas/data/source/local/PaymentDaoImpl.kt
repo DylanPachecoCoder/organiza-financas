@@ -29,33 +29,27 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
         mutableListOf(
             Payment(
                 name = "teste 1",
-                category = Category("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 28)
             ),
             Payment(
                 name = "teste 2",
-                category = Category("carro"),
                 type = PaymentTypeEnum.CASH,
                 date = LocalDate.of(2024, 5, 9)
             ),
             Payment(
                 name = "teste 3",
-                category = Category("restaurante"),
                 type = PaymentTypeEnum.CREDIT,
                 date = LocalDate.of(2024, 5, 8)
             ),
             Payment(
                 type = PaymentTypeEnum.CASH,
-                category = Category("mercado"),
             ),
             Payment(
                 type = PaymentTypeEnum.CREDIT,
-                category = Category("comida"),
             ),
             Payment(
                 type = PaymentTypeEnum.CREDIT,
-                category = Category("sair"),
             ),
             Payment(type = PaymentTypeEnum.CASH),
             Payment(type = PaymentTypeEnum.CASH),

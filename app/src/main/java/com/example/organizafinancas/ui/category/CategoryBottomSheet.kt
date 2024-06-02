@@ -55,7 +55,7 @@ class CategoryBottomSheet(
     }
 
     private fun getCategory(categoryName: String, category: Category?) =
-        category?.copy(name = categoryName) ?: Category(categoryName)
+        category?.copy(name = categoryName) ?: Category(name = categoryName)
 
     private fun setupNewCategory() {
         binding.bottomsheetCategoryTitle.text =
@@ -66,7 +66,8 @@ class CategoryBottomSheet(
         with(binding) {
             edittextCategoryName.editText?.setText(category?.name)
             buttonCategoryDelete.isVisible = true
-            bottomsheetCategoryTitle.text = context?.getString(R.string.category_bottomsheet_title_edit)
+            bottomsheetCategoryTitle.text =
+                context?.getString(R.string.category_bottomsheet_title_edit)
         }
     }
 }

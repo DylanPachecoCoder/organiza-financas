@@ -5,11 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
 
-    fun fetchCategoryFilters(): Flow<List<Category>>
+    suspend fun fetchCategoryFilters(): Flow<List<Category>>
 
-    fun saveCategory(category: Category)
+    suspend fun saveCategory(category: Category)
 
-    fun deleteCategory(category: Category)
-
-    fun updateCategory(category: Category)
+    suspend fun deleteCategory(category: Category)
 }
