@@ -2,11 +2,12 @@ package com.example.organizafinancas.data.source.local
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.PaymentType
+import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 import javax.inject.Inject
 
 class PaymentTypeDaoImpl @Inject constructor() : PaymentTypeDao {
-    override fun getAll() = paymentFilterList
+    override fun getAll() = flow { emit(paymentFilterList) }
 
     private val paymentFilterList =
         mutableListOf(
