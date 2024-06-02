@@ -1,7 +1,6 @@
 package com.example.organizafinancas.data.source.local
 
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentType
 import java.time.LocalDate
