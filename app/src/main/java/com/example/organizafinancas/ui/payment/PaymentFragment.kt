@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
 
     private val viewModel by viewModels<PaymentViewModel>()
-    private val filterAdapter by lazy { FilterAdapter(onItemClicked = viewModel::fetchPaymentList) }
+    private val filterAdapter by lazy { FilterAdapter(onItemClicked = viewModel::fetchPayments) }
 
     override fun inflateViewBind(
         inflater: LayoutInflater, container: ViewGroup?
@@ -57,7 +57,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
     }
 
     private fun showEditPeriodBottomSheet() {
-        PeriodFilterBottomSheet(viewModel::fetchPaymentList).show(
+        PeriodFilterBottomSheet(viewModel::fetchPayments).show(
             parentFragmentManager,
             PeriodFilterBottomSheet.BOTTOM_SHEET_TAG
         )

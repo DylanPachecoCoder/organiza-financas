@@ -26,19 +26,19 @@ class PaymentViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        fetchFilterList()
+        refreshData()
     }
 
-    private fun fetchFilterList() {
+    private fun refreshData() {
         viewModelScope.launch {
             getFiltersUseCase().collect {
                 _uiState.update { currentValue -> currentValue.copy(filters = it) }
-                fetchPaymentList()
+                fetchPayments()
             }
         }
     }
 
-    fun fetchPaymentList() {
+    fun fetchPayments() {
         viewModelScope.launch {
             getPaymentsByFiltersUseCase(uiState.value.filters).collect {
                 _uiState.update { currentValue ->
