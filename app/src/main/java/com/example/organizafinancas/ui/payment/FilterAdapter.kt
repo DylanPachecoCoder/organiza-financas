@@ -1,5 +1,6 @@
 package com.example.organizafinancas.ui.payment
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +25,10 @@ class FilterAdapter(
         holder.bind(option, onItemClicked)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun refreshList(filterList: List<Filter>) {
         filterOptions = filterList
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
