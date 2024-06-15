@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PaymentTypeRepository {
 
-    fun fetchPaymentTypeFilters(): Flow<List<PaymentType>>
+    suspend fun fetchPaymentTypes(): Flow<List<PaymentType>>
+
+    suspend fun savePaymentType(paymentType: PaymentType)
 }

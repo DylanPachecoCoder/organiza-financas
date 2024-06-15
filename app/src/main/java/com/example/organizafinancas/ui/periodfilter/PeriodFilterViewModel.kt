@@ -25,14 +25,20 @@ class PeriodFilterViewModel @Inject constructor(
 
     private fun fetchFilterList() {
         viewModelScope.launch {
-            repository.fetchPaymentTypeFilters().collect{
+            repository.fetchPaymentTypes().collect{
                 _filterList.value = it
             }
         }
     }
 
     fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentType) {
-        paymentFilter.initialDate = initialDate.toLocalDate()
-        paymentFilter.finishDate = finishDate.toLocalDate()
+        viewModelScope.launch {
+            repository.savePaymentType(
+                paymentFilter.copy(
+                    initialDate = initialDate.toLocalDate(),
+                    finishDate = finishDate.toLocalDate()
+                )
+            )
+        }
     }
 }

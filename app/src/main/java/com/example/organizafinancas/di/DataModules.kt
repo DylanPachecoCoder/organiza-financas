@@ -13,7 +13,6 @@ import com.example.organizafinancas.data.source.local.CategoryDao
 import com.example.organizafinancas.data.source.local.PaymentDao
 import com.example.organizafinancas.data.source.local.PaymentDaoImpl
 import com.example.organizafinancas.data.source.local.PaymentTypeDao
-import com.example.organizafinancas.data.source.local.PaymentTypeDaoImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -44,8 +43,13 @@ abstract class RepositoryModule {
 object DatabaseModule {
 
     @Provides
-    fun provideChannelDao(appDatabase: AppDatabase): CategoryDao {
+    fun provideCategoryDao(appDatabase: AppDatabase): CategoryDao {
         return appDatabase.categoryDao()
+    }
+
+    @Provides
+    fun providePaymentTypeDao(appDatabase: AppDatabase): PaymentTypeDao {
+        return appDatabase.paymentTypeDao()
     }
 
     @Provides
@@ -55,18 +59,17 @@ object DatabaseModule {
             appContext,
             AppDatabase::class.java,
             "OrganizaFinancas.db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DatabaseModule2 {
-    @Singleton
-    @Binds
-    abstract fun bindPaymentDao(dao: PaymentDaoImpl): PaymentDao
 
     @Singleton
     @Binds
-    abstract fun bindPaymentTypeDao(dao: PaymentTypeDaoImpl): PaymentTypeDao
+    abstract fun bindPaymentDao(dao: PaymentDaoImpl): PaymentDao
 }

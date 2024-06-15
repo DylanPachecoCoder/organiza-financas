@@ -15,7 +15,7 @@ class GetFiltersUseCase @Inject constructor(
 
     suspend operator fun invoke() = flow {
         val filters = mutableListOf<Filter>()
-        paymentTypeRepository.fetchPaymentTypeFilters().collect { newPaymentTypes ->
+        paymentTypeRepository.fetchPaymentTypes().collect { newPaymentTypes ->
             val oldPaymentTypes = filters.filterIsInstance<PaymentType>()
             filters.removeAll(oldPaymentTypes)
             filters.addAll(newPaymentTypes)
