@@ -76,13 +76,20 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
     }
 
     private fun setupOptionsMenu() {
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.main, menu)
-            }
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
-                setOptionsMenuAction(menuItem)
-        })
+        requireActivity().addMenuProvider(menuProvider)
+    }
+
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.main, menu)
+        }
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+            setOptionsMenuAction(menuItem)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().removeMenuProvider(menuProvider)
     }
 
     private fun setOptionsMenuAction(menuItem: MenuItem) = when (menuItem.itemId) {
