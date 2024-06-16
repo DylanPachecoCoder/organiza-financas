@@ -16,6 +16,7 @@ import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.PaymentType
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import com.example.organizafinancas.domain.usecase.GetPaymentsByFiltersUseCase
+import com.example.organizafinancas.domain.usecase.UpdateFiltersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,8 +29,8 @@ import javax.inject.Inject
 class PaymentViewModel @Inject constructor(
     private val getFiltersUseCase: GetFiltersUseCase,
     private val getPaymentsByFiltersUseCase: GetPaymentsByFiltersUseCase,
+    private val updateFiltersUseCase: UpdateFiltersUseCase,
     private val paymentTypeRepository: PaymentTypeRepository,
-    private val categoryRepository: CategoryRepository,
     private val paymentRepository: PaymentRepository,
 ) : ViewModel() {
 
@@ -64,16 +65,7 @@ class PaymentViewModel @Inject constructor(
 
     fun updateFilter(filter: Filter, isChecked: Boolean) {
         viewModelScope.launch {
-            when(filter){
-                is PaymentType -> {
-                    val copy = filter.copy(isSelected = isChecked)
-                    paymentTypeRepository.savePaymentType(copy)
-                }
-                is Category -> {
-                    val copy = filter.copy(isSelected = isChecked)
-                    categoryRepository.saveCategory(copy)
-                }
-            }
+            updateFiltersUseCase(filter, isChecked)
         }
     }
 
