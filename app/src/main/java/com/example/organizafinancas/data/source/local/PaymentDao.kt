@@ -1,11 +1,20 @@
 package com.example.organizafinancas.data.source.local
 
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.organizafinancas.domain.model.Payment
-import com.example.organizafinancas.domain.model.PaymentType
+import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface PaymentDao {
 
-    fun getAll(): List<Payment>
+    @Query("SELECT * FROM payment")
+    fun getAll(): Flow<List<Payment>>
 
-    fun getByPaymentType(paymentTypeList: List<PaymentType>): List<Payment>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg payments: Payment)
+
+//    fun getByPaymentType(paymentTypeList: List<PaymentType>): List<Payment>
 }

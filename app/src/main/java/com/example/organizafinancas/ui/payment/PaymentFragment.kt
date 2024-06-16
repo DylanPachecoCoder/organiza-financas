@@ -36,6 +36,14 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
         setupOptionsMenu()
         setupFilterAdapter()
         setupCollectors()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.buttonNewPayment.setOnClickListener {
+            viewModel.insertPayment()
+//            viewModel.insertPaymentMethod()
+        }
     }
 
     private fun setupFilterAdapter() {

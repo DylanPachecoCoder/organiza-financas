@@ -9,10 +9,6 @@ import com.example.organizafinancas.data.repository.PaymentRepositoryImpl
 import com.example.organizafinancas.data.repository.PaymentTypeRepository
 import com.example.organizafinancas.data.repository.PaymentTypeRepositoryImpl
 import com.example.organizafinancas.data.source.local.AppDatabase
-import com.example.organizafinancas.data.source.local.CategoryDao
-import com.example.organizafinancas.data.source.local.PaymentDao
-import com.example.organizafinancas.data.source.local.PaymentDaoImpl
-import com.example.organizafinancas.data.source.local.PaymentTypeDao
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -43,33 +39,22 @@ abstract class RepositoryModule {
 object DatabaseModule {
 
     @Provides
-    fun provideCategoryDao(appDatabase: AppDatabase): CategoryDao {
-        return appDatabase.categoryDao()
-    }
+    fun provideCategoryDao(appDatabase: AppDatabase) = appDatabase.categoryDao()
 
     @Provides
-    fun providePaymentTypeDao(appDatabase: AppDatabase): PaymentTypeDao {
-        return appDatabase.paymentTypeDao()
-    }
+    fun providePaymentTypeDao(appDatabase: AppDatabase)= appDatabase.paymentTypeDao()
+
+    @Provides
+    fun providePaymentDao(appDatabase: AppDatabase) = appDatabase.paymentDao()
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
+    fun provideAppDatabase(@ApplicationContext appContext: Context) =
+        Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
             "OrganizaFinancas.db"
         )
             .fallbackToDestructiveMigration()
             .build()
-    }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class DatabaseModule2 {
-
-    @Singleton
-    @Binds
-    abstract fun bindPaymentDao(dao: PaymentDaoImpl): PaymentDao
 }

@@ -8,7 +8,9 @@ import javax.inject.Singleton
 @Singleton
 interface PaymentRepository  {
 
-    fun getAll(): Flow<List<Payment>>
+    suspend fun getAll(): Flow<List<Payment>>
 
-    fun getByPaymentType(paymentTypeList: List<PaymentType>): Flow<List<Payment>>
+    suspend fun getByPaymentType(paymentTypeList: List<PaymentType>): Flow<List<Payment>>
+
+    suspend fun insert(payment: Payment)
 }

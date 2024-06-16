@@ -71,6 +71,7 @@
             tools:text="R$ 3467,98" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_new_payment"
             style="@style/Theme.OrganizaFinancas.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

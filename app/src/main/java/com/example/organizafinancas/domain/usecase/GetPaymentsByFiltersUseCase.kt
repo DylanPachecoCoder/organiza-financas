@@ -17,8 +17,8 @@ class GetPaymentsByFiltersUseCase @Inject constructor(
         val filteredPayments = mutableListOf<Payment>()
         repository.getByPaymentType(paymentTypeFilters).collect { payments ->
             filteredPayments.addAll(filterPaymentsByCategory(payments, filterList))
+            emit(filteredPayments)
         }
-        emit(filteredPayments)
     }
 
     private fun filterPaymentsByCategory(
