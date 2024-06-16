@@ -6,11 +6,9 @@ import com.example.organizafinancas.commons.di.provideDefaultCategory
 import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
-import com.example.organizafinancas.data.repository.CategoryRepository
 import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.data.repository.PaymentTypeRepository
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.PaymentType
