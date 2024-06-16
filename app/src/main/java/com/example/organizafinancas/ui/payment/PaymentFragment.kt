@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
 
     private val viewModel by viewModels<PaymentViewModel>()
-    private val filterAdapter by lazy { FilterAdapter(onItemClicked = viewModel::fetchPayments) }
+    private val filterAdapter by lazy { FilterAdapter(onItemClicked = viewModel::updateFilter) }
 
     override fun inflateViewBind(
         inflater: LayoutInflater, container: ViewGroup?

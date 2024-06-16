@@ -5,8 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
+import com.example.organizafinancas.data.repository.CategoryRepository
+import com.example.organizafinancas.data.repository.PaymentTypeRepository
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
+import com.example.organizafinancas.domain.model.PaymentType
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import com.example.organizafinancas.domain.usecase.GetPaymentsByFiltersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +24,8 @@ import javax.inject.Inject
 class PaymentViewModel @Inject constructor(
     private val getFiltersUseCase: GetFiltersUseCase,
     private val getPaymentsByFiltersUseCase: GetPaymentsByFiltersUseCase,
+    private val paymentTypeRepository: PaymentTypeRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -46,6 +52,21 @@ class PaymentViewModel @Inject constructor(
                         payments = it,
                         total = sumValues(it)
                     )
+                }
+            }
+        }
+    }
+
+    fun updateFilter(filter: Filter, isChecked: Boolean) {
+        viewModelScope.launch {
+            when(filter){
+                is PaymentType -> {
+                    val copy = filter.copy(isSelected = isChecked)
+                    paymentTypeRepository.savePaymentType(copy)
+                }
+                is Category -> {
+                    val copy = filter.copy(isSelected = isChecked)
+                    categoryRepository.saveCategory(copy)
                 }
             }
         }

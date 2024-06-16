@@ -12,7 +12,7 @@ data class PaymentType(
     @ColumnInfo(name = "name")
     override val name: String,
     @ColumnInfo(name = "is_selected")
-    override var isSelected: Boolean,
+    override val isSelected: Boolean,
     @ColumnInfo(name = "initial_date")
     val initialDate: LocalDate,
     @ColumnInfo(name = "finish_date")

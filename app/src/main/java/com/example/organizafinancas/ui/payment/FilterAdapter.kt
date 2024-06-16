@@ -9,7 +9,7 @@ import com.example.organizafinancas.domain.model.Filter
 
 class FilterAdapter(
     private var filterOptions: List<Filter> = emptyList(),
-    private val onItemClicked: () -> Unit
+    private val onItemClicked: (Filter, Boolean) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,13 +34,12 @@ class FilterAdapter(
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: Filter, onItemClicked: () -> Unit) {
+        fun bind(option: Filter, onItemClicked: (Filter, Boolean) -> Unit) {
             with(binding.checkboxFilterOption) {
                 text = option.name
                 isChecked = option.isSelected
                 setOnCheckedChangeListener { _, isChecked ->
-                    option.isSelected = isChecked
-                    onItemClicked()
+                    onItemClicked(option, isChecked)
                 }
             }
         }
