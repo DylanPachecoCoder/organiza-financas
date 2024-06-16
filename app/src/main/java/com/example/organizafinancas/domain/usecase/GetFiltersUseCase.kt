@@ -19,13 +19,12 @@ class GetFiltersUseCase @Inject constructor(
             val oldPaymentTypes = filters.filterIsInstance<PaymentType>()
             filters.removeAll(oldPaymentTypes)
             filters.addAll(newPaymentTypes)
-            emit(filters)
-        }
-        categoryRepository.fetchCategoryFilters().collect { newCategories ->
-            val oldCategories = filters.filterIsInstance<Category>()
-            filters.removeAll(oldCategories)
-            filters.addAll(newCategories)
-            emit(filters)
+            categoryRepository.fetchCategoryFilters().collect { newCategories ->
+                val oldCategories = filters.filterIsInstance<Category>()
+                filters.removeAll(oldCategories)
+                filters.addAll(newCategories)
+                emit(filters)
+            }
         }
     }
 }

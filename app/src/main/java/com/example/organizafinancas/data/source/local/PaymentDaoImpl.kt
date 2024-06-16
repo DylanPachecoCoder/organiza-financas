@@ -1,5 +1,6 @@
 package com.example.organizafinancas.data.source.local
 
+import com.example.organizafinancas.commons.di.provideDefaultCategory
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentType
@@ -19,7 +20,7 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
         paymentFilterList: List<PaymentType>
     ) =
         paymentFilterList.any { filter ->
-            filter.name == payment.type.paymentType
+            filter.name == payment.paymentMethod
                     && filter.initialDate <= payment.date
                     && filter.finishDate >= payment.date
         }
@@ -28,31 +29,17 @@ class PaymentDaoImpl @Inject constructor() : PaymentDao {
         mutableListOf(
             Payment(
                 name = "teste 1",
-                type = PaymentTypeEnum.CREDIT,
-                date = LocalDate.of(2024, 5, 28)
+                category = provideDefaultCategory().name,
+                paymentMethod = PaymentTypeEnum.CREDIT.paymentType,
+                date = LocalDate.of(2024, 5, 28),
+                value = 10.0
             ),
             Payment(
                 name = "teste 2",
-                type = PaymentTypeEnum.CASH,
-                date = LocalDate.of(2024, 5, 9)
-            ),
-            Payment(
-                name = "teste 3",
-                type = PaymentTypeEnum.CREDIT,
-                date = LocalDate.of(2024, 5, 8)
-            ),
-            Payment(
-                type = PaymentTypeEnum.CASH,
-            ),
-            Payment(
-                type = PaymentTypeEnum.CREDIT,
-            ),
-            Payment(
-                type = PaymentTypeEnum.CREDIT,
-            ),
-            Payment(type = PaymentTypeEnum.CASH),
-            Payment(type = PaymentTypeEnum.CASH),
-            Payment(type = PaymentTypeEnum.CREDIT),
+                category = provideDefaultCategory().name,
+                paymentMethod = PaymentTypeEnum.CASH.paymentType,
+                date = LocalDate.of(2024, 5, 9),
+                value = 10.0
+            )
         )
-
 }

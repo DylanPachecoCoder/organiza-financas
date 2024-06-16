@@ -32,9 +32,9 @@ class PaymentAdapter(
 
         fun bind(payment: Payment, isLast: Boolean) {
             with(binding) {
-                chip.text = payment.category.name
+                chip.text = payment.category
                 textviewPaymentName.text = payment.name
-                textviewPaymentType.text = payment.type.paymentType
+                textviewPaymentType.text = payment.paymentMethod
                 textviewPaymentValue.text = payment.value.toCurrency()
                 textviewPaymentDate.text = payment.date.format()
                 divider.isVisible = isLast.not()

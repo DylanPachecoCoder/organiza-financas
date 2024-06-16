@@ -1,14 +1,22 @@
 package com.example.organizafinancas.domain.model
 
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 
+@Entity
 data class Payment(
-    val name: String = "Mercado pago",
-    val type: PaymentTypeEnum,
-    val category: Category = Category(name = "sem categoria"),
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "payment_method")
+    val paymentMethod: String,
+    @ColumnInfo(name = "category")
+    val category: String,
+    @ColumnInfo(name = "date")
     val date: LocalDate = LocalDate.now(),
-    val value: Double = 20.57,
-): Comparable<Payment>{
-    override fun compareTo(other: Payment) = this.date.compareTo(other.date)
-}
+    @ColumnInfo(name = "value")
+    val value: Double,
+)

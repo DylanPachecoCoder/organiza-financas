@@ -26,10 +26,9 @@ class GetPaymentsByFiltersUseCase @Inject constructor(
         selectedFilters: List<Filter>
     ): List<Payment> {
         val categories = getCategoryFiltersSelected(selectedFilters)
-        if (categories.isEmpty()) return payments
         return payments.filter { payment ->
             categories.any { filter ->
-                filter.name == payment.category.name
+                filter.name == payment.category
             }
         }
     }
