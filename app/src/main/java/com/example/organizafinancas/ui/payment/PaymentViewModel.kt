@@ -7,11 +7,9 @@ import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.data.repository.PaymentRepository
-import com.example.organizafinancas.data.repository.PaymentTypeRepository
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
-import com.example.organizafinancas.domain.model.PaymentType
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import com.example.organizafinancas.domain.usecase.GetPaymentsByFiltersUseCase
 import com.example.organizafinancas.domain.usecase.UpdateFiltersUseCase
@@ -28,7 +26,6 @@ class PaymentViewModel @Inject constructor(
     private val getFiltersUseCase: GetFiltersUseCase,
     private val getPaymentsByFiltersUseCase: GetPaymentsByFiltersUseCase,
     private val updateFiltersUseCase: UpdateFiltersUseCase,
-    private val paymentTypeRepository: PaymentTypeRepository,
     private val paymentRepository: PaymentRepository,
 ) : ViewModel() {
 
@@ -83,26 +80,6 @@ class PaymentViewModel @Inject constructor(
                     paymentMethod = PaymentTypeEnum.CASH.paymentType,
                     date = LocalDate.of(2024, 5, 9),
                     value = 10.0
-                )
-            )
-        }
-    }
-
-    fun insertPaymentMethod(){
-        viewModelScope.launch {
-            paymentTypeRepository.savePaymentType(
-                PaymentType(
-                name = PaymentTypeEnum.CASH.paymentType,
-                isSelected = true,
-                initialDate = LocalDate.of(2024, 5, 1),
-                finishDate = LocalDate.of(2024, 6, 30)
-            ))
-            paymentTypeRepository.savePaymentType(
-                PaymentType(
-                    name = PaymentTypeEnum.CREDIT.paymentType,
-                    isSelected = true,
-                    initialDate = LocalDate.of(2024, 5, 1),
-                    finishDate = LocalDate.of(2024, 6, 30)
                 )
             )
         }

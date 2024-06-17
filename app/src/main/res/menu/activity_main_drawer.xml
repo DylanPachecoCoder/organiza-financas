@@ -11,10 +11,7 @@
             android:id="@+id/nav_category"
             android:title="@string/category_title" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_period_filter"
-            android:title="@string/period_filter_edit_period" />
+            android:id="@+id/nav_payment_method"
+            android:title="@string/payment_method_title" />
     </group>
 </menu>
