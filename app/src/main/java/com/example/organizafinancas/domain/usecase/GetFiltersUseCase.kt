@@ -2,9 +2,8 @@ package com.example.organizafinancas.domain.usecase
 
 import com.example.organizafinancas.data.repository.CategoryRepository
 import com.example.organizafinancas.data.repository.PaymentTypeRepository
-import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Filter
-import com.example.organizafinancas.domain.model.PaymentType
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -14,17 +13,16 @@ class GetFiltersUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke() = flow {
-        val filters = mutableListOf<Filter>()
-        paymentTypeRepository.fetchPaymentTypes().collect { newPaymentTypes ->
-            val oldPaymentTypes = filters.filterIsInstance<PaymentType>()
-            filters.removeAll(oldPaymentTypes)
-            filters.addAll(newPaymentTypes)
-            categoryRepository.fetchCategoryFilters().collect { newCategories ->
-                val oldCategories = filters.filterIsInstance<Category>()
-                filters.removeAll(oldCategories)
-                filters.addAll(newCategories)
-                emit(filters)
-            }
-        }
+        combine(getPaymentTypes(), getCategories()) { paymentTypes, categories ->
+            val filters = mutableListOf<Filter>()
+            filters.addAll(paymentTypes)
+            filters.addAll(categories)
+            filters
+        }.collect { emit(it) }
     }
+
+    private suspend fun getPaymentTypes() = paymentTypeRepository.fetchPaymentTypes()
+
+    private suspend fun getCategories() = categoryRepository.fetchCategoryFilters()
+
 }
