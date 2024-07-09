@@ -32,7 +32,7 @@ class PaymentAdapter(
 
         fun bind(payment: Payment, isLast: Boolean) {
             with(binding) {
-                chip.text = payment.category
+                chip.text = payment.categoryId.toString()
                 textviewPaymentName.text = payment.name
                 textviewPaymentType.text = payment.paymentMethodId.toString()
                 textviewPaymentValue.text = payment.value.toCurrency()

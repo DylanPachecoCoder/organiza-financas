@@ -13,8 +13,8 @@ data class Payment(
     val name: String,
     @ColumnInfo(name = "payment_method_id")
     val paymentMethodId: Long,
-    @ColumnInfo(name = "category")
-    val category: String,
+    @ColumnInfo(name = "category_id")
+    val categoryId: Long,
     @ColumnInfo(name = "date")
     val date: LocalDate = LocalDate.now(),
     @ColumnInfo(name = "value")

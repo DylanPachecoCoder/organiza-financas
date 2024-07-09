@@ -67,7 +67,7 @@ class PaymentViewModel @Inject constructor(
             paymentRepository.insert(
                 Payment(
                     name = "teste 1",
-                    category = provideDefaultCategory().name,
+                    categoryId = 1,
                     paymentMethodId = 1,
                     date = LocalDate.of(2024, 5, 28),
                     value = 10.0
@@ -76,7 +76,7 @@ class PaymentViewModel @Inject constructor(
             paymentRepository.insert(
                 Payment(
                     name = "teste 2",
-                    category = provideDefaultCategory().name,
+                    categoryId = 1,
                     paymentMethodId = 2,
                     date = LocalDate.of(2024, 5, 9),
                     value = 10.0

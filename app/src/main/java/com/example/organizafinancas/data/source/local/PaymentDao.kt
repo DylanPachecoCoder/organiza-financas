@@ -23,7 +23,7 @@ interface PaymentDao {
                 "AND date >= paymenttype.initial_date " +
                 "AND date <= paymenttype.finish_date " +
                 "JOIN category ON category.is_selected = 1 " +
-                "AND category.name = payment.category"
+                "AND category.id = payment.category_id"
     )
     fun getByPaymentTypeAndCategory(): Flow<List<Payment>>
 }
