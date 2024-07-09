@@ -7,7 +7,7 @@ import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.PaymentType
 
-@Database(entities = [Category::class, PaymentType::class, Payment::class], version = 4)
+@Database(entities = [Category::class, PaymentType::class, Payment::class], version = 5, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
 

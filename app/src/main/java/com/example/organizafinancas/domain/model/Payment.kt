@@ -11,8 +11,8 @@ data class Payment(
     val id: Long = 0L,
     @ColumnInfo(name = "name")
     val name: String,
-    @ColumnInfo(name = "payment_method")
-    val paymentMethod: String,
+    @ColumnInfo(name = "payment_method_id")
+    val paymentMethodId: Long,
     @ColumnInfo(name = "category")
     val category: String,
     @ColumnInfo(name = "date")

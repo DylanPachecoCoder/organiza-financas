@@ -34,7 +34,7 @@ class PaymentAdapter(
             with(binding) {
                 chip.text = payment.category
                 textviewPaymentName.text = payment.name
-                textviewPaymentType.text = payment.paymentMethod
+                textviewPaymentType.text = payment.paymentMethodId.toString()
                 textviewPaymentValue.text = payment.value.toCurrency()
                 textviewPaymentDate.text = payment.date.format()
                 divider.isVisible = isLast.not()

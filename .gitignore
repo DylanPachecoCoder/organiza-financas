@@ -21,3 +21,7 @@ local.properties
 /.idea/compiler.xml
 /.idea/misc.xml
 /app/schemas/com.example.organizafinancas.data.source.local.AppDatabase/2.json
+/app/schemas/com.example.organizafinancas.data.source.local.AppDatabase/3.json
+/app/schemas/com.example.organizafinancas.data.source.local.AppDatabase/4.json
+/app/schemas/com.example.organizafinancas.data.source.local.AppDatabase/5.json
+/.idea/appInsightsSettings.xml

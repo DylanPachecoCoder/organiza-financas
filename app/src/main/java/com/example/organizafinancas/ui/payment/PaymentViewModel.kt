@@ -7,11 +7,9 @@ import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.data.repository.PaymentRepository
-import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
+import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
-import com.example.organizafinancas.domain.usecase.GetPaymentsByFiltersUseCase
 import com.example.organizafinancas.domain.usecase.UpdateFiltersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +22,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PaymentViewModel @Inject constructor(
     private val getFiltersUseCase: GetFiltersUseCase,
-    private val getPaymentsByFiltersUseCase: GetPaymentsByFiltersUseCase,
     private val updateFiltersUseCase: UpdateFiltersUseCase,
     private val paymentRepository: PaymentRepository,
 ) : ViewModel() {
@@ -37,22 +34,23 @@ class PaymentViewModel @Inject constructor(
     }
 
     private fun refreshData() {
+        fetchFilters()
+        fetchPayments()
+    }
+
+    private fun fetchFilters() {
         viewModelScope.launch {
             getFiltersUseCase().collect {
                 _uiState.update { currentValue -> currentValue.copy(filters = it) }
-                fetchPayments()
             }
         }
     }
 
     fun fetchPayments() {
         viewModelScope.launch {
-            getPaymentsByFiltersUseCase(uiState.value.filters).collect {
+            paymentRepository.getByPaymentType().collect {
                 _uiState.update { currentValue ->
-                    currentValue.copy(
-                        payments = it,
-                        total = sumValues(it)
-                    )
+                    currentValue.copy(payments = it, total = sumValues(it))
                 }
             }
         }
@@ -64,28 +62,31 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    fun insertPayment(){
+    fun insertPayment() {
         viewModelScope.launch {
-            paymentRepository.insert(Payment(
-                name = "teste 1",
-                category = provideDefaultCategory().name,
-                paymentMethod = PaymentTypeEnum.CREDIT.paymentType,
-                date = LocalDate.of(2024, 5, 28),
-                value = 10.0
-            ))
+            paymentRepository.insert(
+                Payment(
+                    name = "teste 1",
+                    category = provideDefaultCategory().name,
+                    paymentMethodId = 1,
+                    date = LocalDate.of(2024, 5, 28),
+                    value = 10.0
+                )
+            )
             paymentRepository.insert(
                 Payment(
                     name = "teste 2",
                     category = provideDefaultCategory().name,
-                    paymentMethod = PaymentTypeEnum.CASH.paymentType,
+                    paymentMethodId = 2,
                     date = LocalDate.of(2024, 5, 9),
                     value = 10.0
                 )
             )
+            refreshData()
         }
     }
 
-    private fun sumValues(payments: MutableList<Payment>): String {
+    private fun sumValues(payments: List<Payment>): String {
         var sum = Double.ZERO
         payments.forEach {
             sum += it.value
