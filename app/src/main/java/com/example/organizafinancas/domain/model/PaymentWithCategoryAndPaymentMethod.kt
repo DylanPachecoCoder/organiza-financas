@@ -15,5 +15,5 @@ data class PaymentWithCategoryAndPaymentMethod(
         parentColumn = "payment_payment_method_id",
         entityColumn = "payment_method_id"
     )
-    val paymentMethod: PaymentType
+    val paymentMethod: PaymentMethod
 )

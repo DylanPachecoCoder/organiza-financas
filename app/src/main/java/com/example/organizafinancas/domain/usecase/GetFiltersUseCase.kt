@@ -1,14 +1,14 @@
 package com.example.organizafinancas.domain.usecase
 
 import com.example.organizafinancas.data.repository.CategoryRepository
-import com.example.organizafinancas.data.repository.PaymentTypeRepository
+import com.example.organizafinancas.data.repository.PaymentMethodRepository
 import com.example.organizafinancas.domain.model.Filter
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetFiltersUseCase @Inject constructor(
-    private val paymentTypeRepository: PaymentTypeRepository,
+    private val paymentMethodRepository: PaymentMethodRepository,
     private val categoryRepository: CategoryRepository,
 ) {
 
@@ -21,7 +21,7 @@ class GetFiltersUseCase @Inject constructor(
         }.collect { emit(it) }
     }
 
-    private suspend fun getPaymentTypes() = paymentTypeRepository.fetchPaymentTypes()
+    private suspend fun getPaymentTypes() = paymentMethodRepository.fetchPaymentTypes()
 
     private suspend fun getCategories() = categoryRepository.fetchCategoryFilters()
 

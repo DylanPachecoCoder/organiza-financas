@@ -4,15 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.organizafinancas.domain.model.PaymentType
+import com.example.organizafinancas.domain.model.PaymentMethod
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PaymentTypeDao {
+interface PaymentMethodDao {
 
-    @Query("SELECT * FROM paymenttype")
-    fun getAll(): Flow<List<PaymentType>>
+    @Query("SELECT * FROM paymentmethod")
+    fun getAll(): Flow<List<PaymentMethod>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg paymentType: PaymentType)
+    fun insertAll(vararg paymentMethod: PaymentMethod)
 }

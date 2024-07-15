@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 @Entity
-data class PaymentType(
+data class PaymentMethod(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "payment_method_id")
     val id: Long = 0L,

@@ -2,9 +2,9 @@ package com.example.organizafinancas.ui.paymentmethod
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.organizafinancas.data.repository.PaymentTypeRepository
+import com.example.organizafinancas.data.repository.PaymentMethodRepository
 import com.example.organizafinancas.domain.enums.PaymentTypeEnum
-import com.example.organizafinancas.domain.model.PaymentType
+import com.example.organizafinancas.domain.model.PaymentMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -12,13 +12,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PaymentMethodViewModel @Inject constructor(
-    private val repository: PaymentTypeRepository
+    private val repository: PaymentMethodRepository
 ) : ViewModel() {
 
     fun insertPaymentMethod() {
         viewModelScope.launch {
             repository.savePaymentType(
-                PaymentType(
+                PaymentMethod(
                     name = PaymentTypeEnum.CASH.paymentType,
                     isSelected = true,
                     initialDate = LocalDate.of(2024, 5, 1),
@@ -26,7 +26,7 @@ class PaymentMethodViewModel @Inject constructor(
                 )
             )
             repository.savePaymentType(
-                PaymentType(
+                PaymentMethod(
                     name = PaymentTypeEnum.CREDIT.paymentType,
                     isSelected = true,
                     initialDate = LocalDate.of(2024, 5, 1),

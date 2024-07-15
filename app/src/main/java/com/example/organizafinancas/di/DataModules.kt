@@ -6,8 +6,8 @@ import com.example.organizafinancas.data.repository.CategoryRepository
 import com.example.organizafinancas.data.repository.CategoryRepositoryImpl
 import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.data.repository.PaymentRepositoryImpl
-import com.example.organizafinancas.data.repository.PaymentTypeRepository
-import com.example.organizafinancas.data.repository.PaymentTypeRepositoryImpl
+import com.example.organizafinancas.data.repository.PaymentMethodRepository
+import com.example.organizafinancas.data.repository.PaymentMethodRepositoryImpl
 import com.example.organizafinancas.data.source.local.AppDatabase
 import dagger.Binds
 import dagger.Module
@@ -31,7 +31,7 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindPaymentTypeRepository(repository: PaymentTypeRepositoryImpl): PaymentTypeRepository
+    abstract fun bindPaymentTypeRepository(repository: PaymentMethodRepositoryImpl): PaymentMethodRepository
 }
 
 @Module
