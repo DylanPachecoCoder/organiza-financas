@@ -5,47 +5,68 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.organizafinancas.databinding.FragmentCategoryBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     private val viewModel by viewModels<CategoryViewModel>()
+    private val adapter by lazy {
+        CategoryAdapter {
+            showCategoryBottomSheet(it, viewModel::saveCategory, viewModel::deleteCategory)
+        }
+    }
 
     override fun inflateViewBind(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentCategoryBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCategories()
-        setupObservers()
+        setupCollectors()
         setupListeners()
+        setupRecyclerView()
+        viewModel.fetchCategories()
+    }
+
+    private fun setupCollectors() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest(::setupUiState)
+            }
+        }
     }
 
     private fun setupListeners() {
         binding.buttonCategoryNew.setOnClickListener {
-            showCategoryBottomSheet(onConfirmButton = viewModel::saveCategory)
+            showCategoryBottomSheet(
+                onConfirmButton = viewModel::saveCategory,
+            )
         }
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerviewCategory.adapter = adapter
+    }
+
+    private fun setupUiState(uiState: UiState) {
+        adapter.refreshList(uiState.categories)
     }
 
     private fun showCategoryBottomSheet(
-        category: SelectableFilter? = null,
-        onConfirmButton: (SelectableFilter?) -> Unit,
-        onDeleteButton: (SelectableFilter?) -> Unit = {}
+        category: Category? = null,
+        onConfirmButton: (Category) -> Unit,
+        onDeleteButton: (Category) -> Unit = {},
     ) {
         CategoryBottomSheet(category, onConfirmButton, onDeleteButton)
             .show(parentFragmentManager, PeriodFilterBottomSheet.BOTTOM_SHEET_TAG)
-    }
-
-    private fun setupObservers() {
-        viewModel.categories.observe(viewLifecycleOwner) { setupList(it) }
-    }
-
-    private fun setupList(categoryList: List<SelectableFilter>) {
-        binding.recyclerviewCategory.adapter = CategoryAdapter(categoryList) {
-            showCategoryBottomSheet(it, viewModel::updateCategory, viewModel::deleteCategory)
-        }
     }
 }

@@ -7,8 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_slideshow">Slideshow</string>
-
     <!-- Payment -->
     <string name="payment_title">Pagamentos</string>
     <string name="payment_total">Total</string>
@@ -29,5 +27,8 @@
     <string name="category_edittext_hint">Categoria</string>
     <string name="category_delete_button_description">apagar categoria</string>
     <string name="category_save_button">salvar</string>
+
+    <!-- Payment Method -->
+    <string name="payment_method_title">Meio de pagamento</string>
 
 </resources>

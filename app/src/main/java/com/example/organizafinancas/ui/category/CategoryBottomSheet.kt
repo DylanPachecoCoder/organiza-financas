@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.organizafinancas.R
 import com.example.organizafinancas.databinding.BottomSheetCategoryBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 import com.example.organizafinancas.ui.base.BaseBottomSheet
 
 class CategoryBottomSheet(
-    private val category: SelectableFilter? = null,
-    private val onConfirmButton: (SelectableFilter?) -> Unit,
-    private val onDeleteButton: (SelectableFilter?) -> Unit
+    private val category: Category? = null,
+    private val onConfirmButton: (Category) -> Unit,
+    private val onDeleteButton: (Category) -> Unit,
 ) : BaseBottomSheet<BottomSheetCategoryBinding>() {
 
     override val standardBottomSheet by lazy { binding.framelayoutCategory }
@@ -40,8 +40,10 @@ class CategoryBottomSheet(
     private fun setupListeners() {
         with(binding) {
             buttonCategoryDelete.setOnClickListener {
-                onDeleteButton(category)
-                dismiss()
+                category?.also {
+                    onDeleteButton(it)
+                    dismiss()
+                }
             }
             buttonCategorySave.setOnClickListener {
                 val categoryName = edittextCategoryName.editText?.text.toString()
@@ -52,13 +54,8 @@ class CategoryBottomSheet(
         }
     }
 
-    private fun getCategory(categoryName: String, category: SelectableFilter?) =
-        if (category == null) {
-            SelectableFilter(categoryName)
-        } else {
-            category.name = categoryName
-            category
-        }
+    private fun getCategory(categoryName: String, category: Category?) =
+        category?.copy(name = categoryName) ?: Category(name = categoryName)
 
     private fun setupNewCategory() {
         binding.bottomsheetCategoryTitle.text =

@@ -9,7 +9,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.example.organizafinancas.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -24,7 +26,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.nav_payment, R.id.nav_category), binding.drawerLayout)
+            AppBarConfiguration(
+                setOf(R.id.nav_payment, R.id.nav_category, R.id.nav_payment_method),
+                binding.drawerLayout
+            )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }

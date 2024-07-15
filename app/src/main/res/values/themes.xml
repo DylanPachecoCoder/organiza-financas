@@ -14,6 +14,19 @@
         <!-- Customize your theme here. -->
         <!-- Text color. -->
         <item name="android:textColorPrimary">@color/black</item>
+        <!-- Bottom sheet dialog theme. -->
+        <item name="bottomSheetDialogTheme">@style/DialogStyle</item>
+    </style>
+
+    <style name="DialogStyle" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="colorPrimary">#0100CC</item>
+        <item name="colorPrimaryVariant">#009671</item>
+        <item name="colorOnPrimary">#0E749F</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#1B8135</item>
+        <item name="colorSecondaryVariant">#81D396</item>
+        <item name="colorOnSecondary">@color/white</item>
     </style>
 
     <style name="Theme.OrganizaFinancas.NoActionBar">

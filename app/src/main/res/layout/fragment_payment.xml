@@ -10,6 +10,7 @@
         android:id="@+id/recyclerview_filter_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +71,7 @@
             tools:text="R$ 3467,98" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_new_payment"
             style="@style/Theme.OrganizaFinancas.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -5,25 +5,40 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.organizafinancas.commons.extensions.toLocalDate
-import com.example.organizafinancas.data.Repository
-import com.example.organizafinancas.domain.model.PaymentTypeFilter
+import com.example.organizafinancas.data.repository.PaymentMethodRepository
+import com.example.organizafinancas.domain.model.PaymentMethod
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PeriodFilterViewModel(
-    private val repository: Repository = Repository.getInstance()
+@HiltViewModel
+class PeriodFilterViewModel @Inject constructor(
+    private val repository: PaymentMethodRepository
 ) : ViewModel() {
 
-    private val _filterList = MutableLiveData<MutableList<PaymentTypeFilter>>()
-    val filterList: LiveData<MutableList<PaymentTypeFilter>> = _filterList
+    private val _filterList = MutableLiveData<List<PaymentMethod>>()
+    val filterList: LiveData<List<PaymentMethod>> = _filterList
 
-    fun fetchFilterList() {
+    init {
+        fetchFilterList()
+    }
+
+    private fun fetchFilterList() {
         viewModelScope.launch {
-            _filterList.value = repository.fetchPaymentFilters()
+            repository.fetchPaymentTypes().collect{
+                _filterList.value = it
+            }
         }
     }
 
-    fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentTypeFilter) {
-        paymentFilter.initialDate = initialDate.toLocalDate()
-        paymentFilter.finishDate = finishDate.toLocalDate()
+    fun changeDate(initialDate: Long, finishDate: Long, paymentFilter: PaymentMethod) {
+        viewModelScope.launch {
+            repository.savePaymentType(
+                paymentFilter.copy(
+                    initialDate = initialDate.toLocalDate(),
+                    finishDate = finishDate.toLocalDate()
+                )
+            )
+        }
     }
 }

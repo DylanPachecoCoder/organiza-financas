@@ -1,51 +1,47 @@
 package com.example.organizafinancas.ui.category
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.organizafinancas.data.Repository
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.data.repository.CategoryRepository
+import com.example.organizafinancas.domain.model.Category
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoryViewModel(
-    private val repository: Repository = Repository.getInstance()
+@HiltViewModel
+class CategoryViewModel @Inject constructor(
+    private val repository: CategoryRepository
 ) : ViewModel() {
 
-    private val _categories = MutableLiveData<MutableList<SelectableFilter>>()
-    val categories: LiveData<MutableList<SelectableFilter>> = _categories
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
 
     fun fetchCategories() {
         viewModelScope.launch {
-            _categories.value = repository.fetchCategoryFilters()
-        }
-    }
-
-    fun saveCategory(category: SelectableFilter?) {
-        viewModelScope.launch {
-            validateCategory(category) {
-                _categories.value = repository.saveCategory(category)
+            repository.fetchCategoryFilters().collect {
+                _uiState.update { currentValue ->
+                    currentValue.copy(categories = it)
+                }
             }
         }
     }
 
-    fun deleteCategory(category: SelectableFilter?) {
+    fun saveCategory(category: Category) {
         viewModelScope.launch {
-            _categories.value = repository.deleteCategory(category)
+            repository.saveCategory(category)
         }
     }
 
-    fun updateCategory(category: SelectableFilter?) {
+    fun deleteCategory(category: Category) {
         viewModelScope.launch {
-            validateCategory(category) {
-                _categories.value = repository.updateCategory(category)
-            }
-        }
-    }
-
-    private fun validateCategory(category: SelectableFilter?, block: () -> Unit) {
-        if (category != null && category.name.isNotEmpty()) {
-            block()
+            repository.deleteCategory(category)
         }
     }
 }
+
+data class UiState(
+    val categories: List<Category> = emptyList()
+)

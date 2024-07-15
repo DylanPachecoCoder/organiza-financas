@@ -1,14 +1,15 @@
 package com.example.organizafinancas.ui.category
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemCategoryDetailBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Category
 
 class CategoryAdapter(
-    private val categoryList: List<SelectableFilter> = mutableListOf(),
-    private val onItemClicked: (category: SelectableFilter) -> Unit
+    private var categoryList: List<Category> = mutableListOf(),
+    private val onItemClicked: (category: Category) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,10 +24,16 @@ class CategoryAdapter(
         holder.bind(categoryList[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshList(categoryList: List<Category>) {
+        this.categoryList = categoryList
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val binding: ItemCategoryDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(category: SelectableFilter) {
+        fun bind(category: Category) {
             with(binding) {
                textviewCategoryName.text = category.name
                 card.setOnClickListener {

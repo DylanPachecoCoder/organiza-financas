@@ -1,14 +1,15 @@
 package com.example.organizafinancas.ui.payment
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizafinancas.databinding.ItemFilterOptionBinding
-import com.example.organizafinancas.domain.model.SelectableFilter
+import com.example.organizafinancas.domain.model.Filter
 
 class FilterAdapter(
-    private val filterOptions: List<SelectableFilter>,
-    private val onItemClicked: () -> Unit
+    private var filterOptions: List<Filter> = emptyList(),
+    private val onItemClicked: (Filter, Boolean) -> Unit
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,16 +25,21 @@ class FilterAdapter(
         holder.bind(option, onItemClicked)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshList(filterList: List<Filter>) {
+        filterOptions = filterList
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(private val binding: ItemFilterOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: SelectableFilter, onItemClicked: () -> Unit) {
+        fun bind(option: Filter, onItemClicked: (Filter, Boolean) -> Unit) {
             with(binding.checkboxFilterOption) {
                 text = option.name
                 isChecked = option.isSelected
                 setOnCheckedChangeListener { _, isChecked ->
-                    option.isSelected = isChecked
-                    onItemClicked()
+                    onItemClicked(option, isChecked)
                 }
             }
         }

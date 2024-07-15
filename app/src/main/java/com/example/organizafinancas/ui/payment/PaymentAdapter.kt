@@ -8,10 +8,10 @@ import com.example.organizafinancas.commons.extensions.ONE
 import com.example.organizafinancas.commons.extensions.format
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.databinding.ItemPaymentDetailBinding
-import com.example.organizafinancas.domain.model.Payment
+import com.example.organizafinancas.domain.model.PaymentWithCategoryAndPaymentMethod
 
 class PaymentAdapter(
-    private val paymentList: List<Payment> = mutableListOf()
+    private val paymentList: List<PaymentWithCategoryAndPaymentMethod> = mutableListOf()
 ) : RecyclerView.Adapter<PaymentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,13 +30,13 @@ class PaymentAdapter(
     inner class ViewHolder(private val binding: ItemPaymentDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(payment: Payment, isLast: Boolean) {
+        fun bind(payment: PaymentWithCategoryAndPaymentMethod, isLast: Boolean) {
             with(binding) {
                 chip.text = payment.category.name
-                textviewPaymentName.text = payment.name
-                textviewPaymentType.text = payment.type.paymentType
-                textviewPaymentValue.text = payment.value.toCurrency()
-                textviewPaymentDate.text = payment.date.format()
+                textviewPaymentName.text = payment.payment.name
+                textviewPaymentType.text = payment.paymentMethod.name
+                textviewPaymentValue.text = payment.payment.value.toCurrency()
+                textviewPaymentDate.text = payment.payment.date.format()
                 divider.isVisible = isLast.not()
             }
         }
