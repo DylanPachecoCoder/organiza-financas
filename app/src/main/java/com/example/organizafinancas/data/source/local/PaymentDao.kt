@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.organizafinancas.domain.model.Payment
+import com.example.organizafinancas.domain.model.PaymentWithCategoryAndPaymentMethod
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,12 +19,12 @@ interface PaymentDao {
 
     @Query(
         "SELECT * FROM payment " +
-                "JOIN paymenttype ON paymenttype.is_selected = 1 " +
-                "AND paymenttype.id = payment_method_id " +
-                "AND date >= paymenttype.initial_date " +
-                "AND date <= paymenttype.finish_date " +
-                "JOIN category ON category.is_selected = 1 " +
-                "AND category.id = payment.category_id"
+                "LEFT JOIN paymenttype ON paymenttype.payment_method_is_selected = 1 " +
+                "AND paymenttype.payment_method_id = payment.payment_payment_method_id " +
+                "AND payment.payment_date >= paymenttype.payment_method_initial_date " +
+                "AND payment.payment_date <= paymenttype.payment_method_finish_date " +
+                "LEFT JOIN category ON category.category_is_selected = 1 " +
+                "AND category.category_id = payment.payment_category_id"
     )
-    fun getByPaymentTypeAndCategory(): Flow<List<Payment>>
+    fun getByPaymentTypeAndCategory(): Flow<List<PaymentWithCategoryAndPaymentMethod>>
 }

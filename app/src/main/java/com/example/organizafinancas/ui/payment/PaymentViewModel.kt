@@ -2,13 +2,13 @@ package com.example.organizafinancas.ui.payment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.organizafinancas.commons.di.provideDefaultCategory
 import com.example.organizafinancas.commons.extensions.EMPTY
 import com.example.organizafinancas.commons.extensions.ZERO
 import com.example.organizafinancas.commons.extensions.toCurrency
 import com.example.organizafinancas.data.repository.PaymentRepository
 import com.example.organizafinancas.domain.model.Filter
 import com.example.organizafinancas.domain.model.Payment
+import com.example.organizafinancas.domain.model.PaymentWithCategoryAndPaymentMethod
 import com.example.organizafinancas.domain.usecase.GetFiltersUseCase
 import com.example.organizafinancas.domain.usecase.UpdateFiltersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -86,10 +86,10 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    private fun sumValues(payments: List<Payment>): String {
+    private fun sumValues(payments: List<PaymentWithCategoryAndPaymentMethod>): String {
         var sum = Double.ZERO
         payments.forEach {
-            sum += it.value
+            sum += it.payment.value
         }
         return sum.toCurrency()
     }
@@ -97,6 +97,6 @@ class PaymentViewModel @Inject constructor(
 
 data class UiState(
     val filters: List<Filter> = emptyList(),
-    val payments: List<Payment> = emptyList(),
+    val payments: List<PaymentWithCategoryAndPaymentMethod> = emptyList(),
     val total: String = String.EMPTY
 )

@@ -8,13 +8,14 @@ import java.time.LocalDate
 @Entity
 data class PaymentType(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "payment_method_id")
     val id: Long = 0L,
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "payment_method_name")
     override val name: String,
-    @ColumnInfo(name = "is_selected")
+    @ColumnInfo(name = "payment_method_is_selected")
     override val isSelected: Boolean,
-    @ColumnInfo(name = "initial_date")
+    @ColumnInfo(name = "payment_method_initial_date")
     val initialDate: LocalDate,
-    @ColumnInfo(name = "finish_date")
+    @ColumnInfo(name = "payment_method_finish_date")
     val finishDate: LocalDate,
 ) : Filter

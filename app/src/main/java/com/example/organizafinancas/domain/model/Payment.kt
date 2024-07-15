@@ -8,15 +8,16 @@ import java.time.LocalDate
 @Entity
 data class Payment(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "payment_id")
     val id: Long = 0L,
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "payment_name")
     val name: String,
-    @ColumnInfo(name = "payment_method_id")
+    @ColumnInfo(name = "payment_payment_method_id")
     val paymentMethodId: Long,
-    @ColumnInfo(name = "category_id")
+    @ColumnInfo(name = "payment_category_id")
     val categoryId: Long,
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "payment_date")
     val date: LocalDate = LocalDate.now(),
-    @ColumnInfo(name = "value")
+    @ColumnInfo(name = "payment_value")
     val value: Double,
 )

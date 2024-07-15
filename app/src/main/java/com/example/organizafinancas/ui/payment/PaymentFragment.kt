@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.organizafinancas.R
 import com.example.organizafinancas.databinding.FragmentPaymentBinding
-import com.example.organizafinancas.domain.model.Payment
 import com.example.organizafinancas.domain.model.Filter
+import com.example.organizafinancas.domain.model.PaymentWithCategoryAndPaymentMethod
 import com.example.organizafinancas.ui.base.BaseFragment
 import com.example.organizafinancas.ui.periodfilter.PeriodFilterBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,7 +75,7 @@ class PaymentFragment : BaseFragment<FragmentPaymentBinding>() {
         binding.textviewTotalValue.text = total
     }
 
-    private fun setupPaymentList(paymentList: List<Payment>?) {
+    private fun setupPaymentList(paymentList: List<PaymentWithCategoryAndPaymentMethod>?) {
         binding.recyclerviewPayment.adapter = PaymentAdapter(paymentList.orEmpty())
     }
 
